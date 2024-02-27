@@ -6,9 +6,7 @@ export default function LoginLogo() {
       <img src={unsri} alt="" />
       <div className="w-full text-center">
         <h1 className="text-xl font-bold mt-3">SIWI UNSRI</h1>
-        <p className="text-sm">
-          Sistem Informasi Akademik Universitas Sriwijaya
-        </p>
+        <p className="text-sm">Sistem Informasi Wisuda Universitas Sriwijaya</p>
       </div>
     </div>
   );

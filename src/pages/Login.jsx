@@ -1,24 +1,15 @@
-import unsri from "../../public/unsri.png";
 import user from "../../public/icons/user.svg";
 import lock from "../../public/icons/lock.svg";
 import { Link } from "react-router-dom";
+
+import LoginLogo from "../components/LoginLogo";
 
 export default function Login() {
   return (
     <div className="bg-gray-100 w-screen h-screen flex justify-center items-center">
       <div className="w-[500px] shadow-lg bg-white py-10 ">
-        <div className=" flex flex-wrap justify-center">
-          {/* LOGO */}
-          <div className="w-full flex justify-center flex-wrap">
-            <img src={unsri} alt="" />
-            <div className="w-full text-center">
-              <h1 className="text-xl font-bold mt-3">SIWI UNSRI</h1>
-              <p className="text-sm">
-                Sistem Informasi Akademik Universitas Sriwijaya
-              </p>
-            </div>
-          </div>
-          {/* LOGO */}
+        <div className=" flex flex-wrap justify-center ">
+          <LoginLogo />
 
           {/* LOGIN */}
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

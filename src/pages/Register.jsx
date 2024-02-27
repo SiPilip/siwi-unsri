@@ -1,12 +1,14 @@
 import user from "../../public/icons/user.svg";
 import lock from "../../public/icons/lock.svg";
 import LoginLogo from "../components/LoginLogo";
+import BackButtonLogin from "../components/BackButtonLogin";
 
 export default function Register() {
   return (
     <div className="bg-gray-100 w-screen h-screen flex justify-center items-center">
       <div className="w-[500px] shadow-lg bg-white py-10 ">
-        <div className=" flex flex-wrap justify-center">
+        <div className=" flex flex-wrap justify-center relative">
+          <BackButtonLogin />
           <LoginLogo />
 
           {/* REGISTER */}
