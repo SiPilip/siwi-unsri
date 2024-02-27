@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        unsri: "#FEF400",
-        unsrihover: "#F5EC01",
+        unsri: "#FFB800",
+        unsrihover: "#EAA901",
       },
     },
   },

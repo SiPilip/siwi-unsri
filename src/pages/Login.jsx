@@ -2,7 +2,6 @@ import unsri from "../../public/unsri.png";
 import user from "../../public/icons/user.svg";
 import lock from "../../public/icons/lock.svg";
 import { Link } from "react-router-dom";
-import Register from "./Register";
 
 export default function Login() {
   return (
