@@ -6,7 +6,7 @@ export default function BackButtonLogin() {
   return (
     <button
       type="button"
-      className="flex items-center justify-center w-10 h-14 px-5 py-2 text-sm text-gray-700 rounded-full transition-colors duration-200 bg-white  gap-x-2 sm:w-auto  hover:bg-gray-100 absolute top-0 -mt-8 left-2 shadow-lg"
+      className="flex items-center justify-center w-10 h-14 px-5 py-2 text-sm text-gray-700 rounded-full transition-colors duration-200 bg-white  gap-x-2 sm:w-auto  hover:bg-gray-100 absolute top-0 mt-1 left-2 shadow-lg"
       onClick={() => {
         navigate(-1);
       }}

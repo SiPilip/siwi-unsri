@@ -7,16 +7,13 @@ import LoginRegisterGetHelp from "../components/LoginRegisterGetHelp";
 
 import { Link } from "react-router-dom";
 import LoginRegisterContainer from "../components/LoginRegisterContainer";
+import { Children } from "react";
 
 export default function Login() {
   return (
     <LoginRegisterContainer>
       <LoginLogo />
-      <form
-        className="space-y-5 mt-10 sm:mx-auto sm:w-full sm:max-w-sm"
-        action="#"
-        method="POST"
-      >
+      <FormContainer>
         <LoginRegisterInput
           id="nim"
           src={user}
@@ -41,7 +38,19 @@ export default function Login() {
           <LoginRegisterButton type="unfull">Register</LoginRegisterButton>
         </Link>
         <LoginRegisterGetHelp />
-      </form>
+      </FormContainer>
     </LoginRegisterContainer>
+  );
+}
+
+function FormContainer({ children }) {
+  return (
+    <form
+      className="space-y-5 mt-10 sm:mx-auto sm:w-full sm:max-w-sm"
+      action="#"
+      method="POST"
+    >
+      {children}
+    </form>
   );
 }
