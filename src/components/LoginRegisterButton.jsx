@@ -1,9 +1,10 @@
-export default function LoginRegisterButton({ children, type }) {
+export default function LoginRegisterButton({ children, type, onClick }) {
   if (type === "full") {
     return (
       <button
         type="submit"
         className="flex w-full justify-center rounded-md bg-unsri px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-unsrihover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-unsrihover transition-all duration-300 ease-in-out"
+        onClick={onClick}
       >
         {children}
       </button>

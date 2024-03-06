@@ -14,7 +14,7 @@ export default function Register() {
       <BackButtonLogin />
       <LoginLogo />
       <form
-        className="space-y-5 mt-10 sm:mx-auto sm:w-full sm:max-w-sm relative"
+        className="space-y-5 mt-10 sm:mx-auto sm:w-full w-full sm:max-w-sm relative px-3"
         action="#"
         method="POST"
       >
