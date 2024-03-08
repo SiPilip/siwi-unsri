@@ -1,7 +1,8 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import DashboardUser from "./pages/DashboardUser";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="dashboard" element={<DashboardUser />} />
+          <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </BrowserRouter>
     </main>
