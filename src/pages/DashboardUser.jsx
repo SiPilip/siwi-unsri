@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUsers } from "../../services/apiUser";
+import { getUsers } from "../services/apiUser";
 
 export default function DashboardUser() {
   const [user, setUser] = useState([]);
@@ -11,10 +11,6 @@ export default function DashboardUser() {
 
   return (
     <div>
-      {/* <p>NIM: {user.at(0).nim}</p>
-      <p>Password: {user.at(0).password}</p>
-      <p>Email: {user.at(0).email}</p>
-      <p>Roles: {user.at(0).roles}</p> */}
       {user.map((e) => (
         <div key={e.id}>
           <p>id: {e.id}</p>

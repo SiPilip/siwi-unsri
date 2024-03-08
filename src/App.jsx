@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import DashboardUser from "./pages/dashboardUser/DashboardUser";
+import DashboardUser from "./pages/DashboardUser";
 
 export default function App() {
   return (
