@@ -1,6 +1,7 @@
-
-export default function dashboardUser() {
+export default function DashboardUser() {
   return (
-    <div>dashboardUser</div>
-  )
+    <div>
+      <p>aw</p>
+    </div>
+  );
 }
