@@ -6,17 +6,18 @@ import LoginRegisterButton from "../components/LoginRegisterButton";
 import LoginRegisterGetHelp from "../components/LoginRegisterGetHelp";
 import FormContainer from "../components/FormContainer";
 
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import LoginRegisterContainer from "../components/LoginRegisterContainer";
 import { useEffect, useState } from "react";
 import WarnBox from "../components/WarnBox";
-
 
 export default function Login() {
   const [nim, setNim] = useState("");
   const [password, setPassword] = useState("");
   const [isNim, setIsNim] = useState(true);
   const [isPassword, setIsPassword] = useState(true);
+
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -30,6 +31,10 @@ export default function Login() {
     }
     setNim("");
     setPassword("");
+
+    if (nim === "123" && password === "123") {
+      navigate("/dashboard", { replace: true });
+    }
   }
 
   useEffect(
