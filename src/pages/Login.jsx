@@ -6,14 +6,22 @@ import LoginRegisterButton from "../components/LoginRegisterButton";
 import LoginRegisterGetHelp from "../components/LoginRegisterGetHelp";
 import FormContainer from "../components/FormContainer";
 
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginRegisterContainer from "../components/LoginRegisterContainer";
 import { useEffect, useState } from "react";
 import WarnBox from "../components/WarnBox";
+import { getUsers } from "../services/apiUser";
 
 export default function Login() {
+  const [data, setData] = useState([]);
+
+  useEffect(function () {
+    getUsers().then((data) => setData(data));
+  }, []);
+
   const [nim, setNim] = useState("");
   const [password, setPassword] = useState("");
+
   const [isNim, setIsNim] = useState(true);
   const [isPassword, setIsPassword] = useState(true);
 
@@ -31,10 +39,14 @@ export default function Login() {
     }
     setNim("");
     setPassword("");
-
-    if (nim === "123" && password === "123") {
-      navigate("/dashboard", { replace: true });
-    }
+    data.forEach((e) => {
+      if (nim === e.nim) {
+        if (password === e.password) {
+          (e.roles === "user") && navigate(`/dashboarduser?id=${e.id}`, { replace: true });
+          (e.roles === "admin") && navigate(`/dashboardadm?id=${e.id}`, { replace: true });
+        }
+      }
+    });
   }
 
   useEffect(

@@ -6,6 +6,7 @@ export default {
       colors: {
         unsri: "#FFB800",
         unsrihover: "#EAA901",
+        unsrihover2: "#FFF0C8",
       },
     },
   },
