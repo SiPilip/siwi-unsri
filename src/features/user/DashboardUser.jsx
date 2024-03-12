@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import { getUsers } from "../../services/apiUser";
-// import { useSearchParams } from "react-router-dom";
 import useNim from "../../hooks/useNim";
-// import LoginLogo from "../components/LoginLogo";
-// import DashboardLogo from "../components/DashboardLogo";
-// import cors from "cors";
 import Navbar from "../../ui/Navbar";
 import FooterDashboard from "../../ui/FooterDashboard";
+import { Outlet } from "react-router-dom";
 
 export default function DashboardUser() {
   const [data, setData] = useState([]);
@@ -50,8 +47,11 @@ export default function DashboardUser() {
   );
 
   return (
-    <main className="w-full h-screen">
-      <Navbar />
+    <main className="w-full h-screen bg-[#F7F7F8]">
+      <div className="flex w-screen h-[94%]">
+        <Navbar />
+        <Outlet />
+      </div>
       <FooterDashboard />
     </main>
   );

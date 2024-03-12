@@ -42,8 +42,9 @@ export default function Login() {
     data.forEach((e) => {
       if (nim === e.nim) {
         if (password === e.password) {
-          (e.roles === "user") && navigate(`/dashboarduser?id=${e.id}`, { replace: true });
-          (e.roles === "admin") && navigate(`/dashboardadm?id=${e.id}`, { replace: true });
+          e.roles === "user" && navigate(`/user?id=${e.id}`, { replace: true });
+          e.roles === "admin" &&
+            navigate(`/admin?id=${e.id}`, { replace: true });
         }
       }
     });
