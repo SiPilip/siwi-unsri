@@ -1,4 +1,11 @@
-export default function WarnBox({ text1 = "", text2 = "", onClose }) {
+import { useState } from "react";
+
+export default function WarnBox({
+  text1 = "",
+  text2 = "",
+  text3 = "",
+  onClose,
+}) {
   return (
     <div
       className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative flex"
@@ -7,6 +14,7 @@ export default function WarnBox({ text1 = "", text2 = "", onClose }) {
       <div>
         <strong className="font-bold text-xs sm:text-sm">{text1}</strong>
         <span className="block sm:inline text-xs sm:text-sm">{text2}</span>
+        <strong className="font-bold text-xs sm:text-sm">{text3}</strong>
       </div>
       <button onClick={onClose} className="ml-2">
         <span className="absolute top-0 bottom-0 right-0 px-4 py-3">

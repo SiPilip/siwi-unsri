@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import FormContainer from "../components/FormContainer";
 import WarnBox from "../components/WarnBox";
 
+const TOKEN_SIWI_2024 = "anjeng";
+
 export default function Register() {
   const [nim, setNim] = useState("");
   const [email, setEmail] = useState("");
@@ -18,105 +20,11 @@ export default function Register() {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [token, setToken] = useState("");
 
-  const TOKEN_SIWI_2024 = "anjeng";
-
-  const [isWarn, setIsWarn] = useState({
-    fieldWarn: false,
-    passwordWarn: false,
-  });
-
-  function cekField() {
-    if (!nim) {
-      setIsWarn((prevState) => ({
-        ...prevState,
-        fieldWarn: true,
-      }));
-      return;
-    }
-    if (!password) {
-      setIsWarn((prevState) => ({
-        ...prevState,
-        fieldWarn: true,
-      }));
-      return;
-    }
-    if (password != repeatPassword) {
-      setIsWarn((prevState) => ({
-        ...prevState,
-        passwordWarn: true,
-      }));
-      return;
-    }
-    function cekEmail() {
-      const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-      if (!emailPattern.test(email)) {
-        setIsWarn((prevState) => ({
-          ...prevState,
-          fieldWarn: true,
-        }));
-        return;
-      }
-    }
-    cekEmail();
-  }
-
-  function resetField() {
-    alert("nerh");
-    setNim("");
-    setPassword("");
-    setRepeatPassword("");
-    setEmail("");
-    setToken("");
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    cekField();
-    if (!isWarn.fieldWarn && !isWarn.passwordWarn) {
-      resetField();
-    }
-  }
-
-  useEffect(
-    function nimChange() {
-      setIsWarn((prevState) => ({
-        ...prevState,
-        fieldWarn: false,
-        passwordWarn: false,
-      }));
-    },
-    [setIsWarn]
-  );
-
   return (
     <LoginRegisterContainer>
       <BackButtonLogin />
       <LoginLogo />
       <FormContainer>
-        {isWarn.fieldWarn && (
-          <WarnBox
-            text2="Harap isi semua kolom registrasi dengan tepat!"
-            onClose={(e) => {
-              e.preventDefault();
-              setIsWarn((prevState) => ({
-                ...prevState,
-                fieldWarn: true,
-              }));
-            }}
-          />
-        )}
-        {isWarn.passwordWarn && (
-          <WarnBox
-            text2="Kata sandi tidak sama!"
-            onClose={(e) => {
-              e.preventDefault();
-              setIsWarn((prevState) => ({
-                ...prevState,
-                fieldWarn: true,
-              }));
-            }}
-          />
-        )}
         <LoginRegisterInput
           id="nim"
           src={user}
