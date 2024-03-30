@@ -12,6 +12,7 @@ import DataAkademik from "./pages/DataAkademik";
 import USEPT from "./pages/USEPT";
 import FormulirPendaftaran from "./pages/FormulirPendaftaran";
 import TranskripNilai from "./pages/TranskripNilai";
+import PageNotFound from "./ui/PageNotFound";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,6 +46,7 @@ export default function App() {
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
 
