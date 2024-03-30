@@ -52,6 +52,7 @@ export default function LoginForm() {
           icon={<HiMiniKey />}
           {...register("password", {
             required: "Kata Sandi wajib diisi!",
+            value: "123",
           })}
         />
       </LoginFormRow>
