@@ -13,6 +13,8 @@ import USEPT from "./pages/USEPT";
 import FormulirPendaftaran from "./pages/FormulirPendaftaran";
 import TranskripNilai from "./pages/TranskripNilai";
 import PageNotFound from "./ui/PageNotFound";
+import { Suspense } from "react";
+import SpinnerFullPage from "./ui/SpinnerFullPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,26 +30,28 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools />
       <BrowserRouter>
-        <Routes>
-          <Route
-            element={
-              <ProtectedRoute>
-                <AppLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate replace to="/beranda" />} />
-            <Route path="/beranda" element={<Beranda />} />
-            <Route path="/datapendaftar" element={<DataPendaftar />} />
-            <Route path="/dataakademik" element={<DataAkademik />} />
-            <Route path="/transkripnilai" element={<TranskripNilai />} />
-            <Route path="/usept" element={<USEPT />} />
-            <Route path="/daftar" element={<FormulirPendaftaran />} />
-          </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
+        <Suspense fallback={<SpinnerFullPage />}>
+          <Routes>
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate replace to="/beranda" />} />
+              <Route path="/beranda" element={<Beranda />} />
+              <Route path="/datapendaftar" element={<DataPendaftar />} />
+              <Route path="/dataakademik" element={<DataAkademik />} />
+              <Route path="/transkripnilai" element={<TranskripNilai />} />
+              <Route path="/usept" element={<USEPT />} />
+              <Route path="/daftar" element={<FormulirPendaftaran />} />
+            </Route>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
 
       <Toaster
