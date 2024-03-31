@@ -10,7 +10,7 @@ export default function FormRow({ label, error, children, required }) {
           {label}
           {required && <p className="text-red-600">*</p>}
         </label>
-        <div className="flex flex-nowrap gap-10 items-center mt-1">
+        <div className="flex flex-nowrap gap-10 items-center mt-1 ">
           {children}
           {error && <span className="text-red-400">{error}</span>}
         </div>

@@ -5,6 +5,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Suspense, lazy } from "react";
 import SpinnerFullPage from "./ui/SpinnerFullPage";
 import ProtectedRoute from "./features/authentication/ProtectedRoute";
+import UbahProfileForm from "./features/authentication/UbahProfileForm";
+import UbahProfile from "./pages/UbahProfile";
 
 // PAGES
 // import PageNotFound from "./ui/PageNotFound";
@@ -59,6 +61,7 @@ export default function App() {
               <Route path="/transkripnilai" element={<TranskripNilai />} />
               <Route path="/usept" element={<USEPT />} />
               <Route path="/daftar" element={<FormulirPendaftaran />} />
+              <Route path="/ubahprofile" element={<UbahProfile />} />
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

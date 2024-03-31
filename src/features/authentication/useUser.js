@@ -3,8 +3,8 @@ import { getCurrentUser } from "../../services/apiAuth";
 
 export function useUser() {
   const { data: user, isLoading: isUserLoading } = useQuery({
-    queryFn: getCurrentUser,
     queryKey: ["user"],
+    queryFn: getCurrentUser,
   });
 
   return {
