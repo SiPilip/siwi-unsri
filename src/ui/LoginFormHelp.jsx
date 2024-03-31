@@ -1,6 +1,6 @@
 export default function LoginFormHelp() {
   return (
-    <p className="mt-10 text-center text-sm text-gray-500">
+    <p className="mt-5 text-center text-sm text-gray-500">
       Masalah teknis?
       <a
         href="https://wa.me/+6285380557667"

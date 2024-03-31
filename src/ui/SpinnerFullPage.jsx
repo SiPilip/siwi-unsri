@@ -1,5 +1,4 @@
 import Spinner from "./Spinner";
-import SpinnerMini from "./SpinnerMini";
 
 export default function SpinnerFullPage() {
   return (

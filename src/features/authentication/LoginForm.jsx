@@ -56,8 +56,8 @@ export default function LoginForm() {
           })}
         />
       </LoginFormRow>
-      <LoginFormButton label="Login" disabled={isLoading} />
-      <LoginFormButton label="Register" disabled={isLoading} />
+      <LoginFormButton type="full" label="Login" disabled={isLoading} />
+      <LoginFormButton type="unfull" label="Register" disabled={isLoading} />
       <LoginFormHelp />
     </form>
   );
