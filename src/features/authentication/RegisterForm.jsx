@@ -19,8 +19,8 @@ export default function RegisterForm() {
 
   const { signup, isLoading } = useSignup();
 
-  function onSubmit({ nim, email, password }) {
-    signup({ nim, email, password }, { onSuccess: () => reset });
+  function onSubmit({ email, password }) {
+    signup({ email, password }, { onSuccess: () => reset });
   }
 
   function onError() {

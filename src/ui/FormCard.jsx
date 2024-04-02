@@ -8,7 +8,7 @@ export default function FormCard({
 }) {
   if (isOpened)
     return (
-      <div className="bg-white py-8 px-14 rounded-xl border-2 border-solid border-neutral-100 flex justify-start items-center gap-10 w-[20rem] h-[6rem]">
+      <div className="bg-white py-8 px-12 rounded-xl border-2 border-solid border-neutral-100 flex justify-start items-center gap-5 w-[20rem] h-[6rem]">
         {condition === true && (
           <img src={trueicons} className="scale-150"></img>
         )}
@@ -17,7 +17,7 @@ export default function FormCard({
           <img src={wrongicons} className="scale-150"></img>
         )}
 
-        <span className="text-lg font-semibold">{children}</span>
+        <span className="text-lg font-medium">{children}</span>
       </div>
     );
 

@@ -2,13 +2,17 @@ import { useState } from "react";
 import SubHeaderDataPendaftar from "./SubHeaderDataPendaftar";
 import DataPribadi from "./DataPribadi";
 import DataOrangTua from "./DataOrangTua";
-import useVerifiedDataPribadi from "./useVerifiedDataPribadi";
+import useProgress from "../beranda/useProgress";
+import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
 
 export default function LayoutDataPendaftar() {
   const [isShowingDataPribadi, setIsShowingDataPribadi] = useState(false);
-  const [isShowingDataOrangTua, setIsShowingDataOrangTua] = useState(true);
+  const [isShowingDataOrangTua, setIsShowingDataOrangTua] = useState(false);
 
-  const isVerifiedDataPribadi = useVerifiedDataPribadi();
+  const { isVerifiedDataOrangTua, isVerifiedDataPribadi, isLoading } =
+    useProgress();
+
+  if (isLoading) return <SpinnerFullContainer />;
 
   return (
     <>
@@ -24,6 +28,7 @@ export default function LayoutDataPendaftar() {
         title={"Data Orangtua / Wali"}
         isShowing={isShowingDataOrangTua}
         handleClick={() => setIsShowingDataOrangTua((show) => !show)}
+        verified={isVerifiedDataOrangTua}
       />
       {isShowingDataOrangTua && <DataOrangTua />}
     </>

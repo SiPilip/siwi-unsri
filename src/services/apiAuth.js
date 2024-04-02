@@ -16,15 +16,10 @@ export async function logout() {
   if (error) throw new Error(error.message);
 }
 
-export async function signup({ nim: fullName, email, password }) {
+export async function signup({ email, password }) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: {
-      data: {
-        fullName,
-      },
-    },
   });
 
   if (error) throw new Error(error.message);
@@ -51,24 +46,36 @@ export async function getCurrentUser() {
   return datatemp;
 }
 
-export async function updateCurrentUser({ avatar }) {
+export async function updateCurrentUser({ avatar, fullName }) {
+  if (fullName) {
+    const { data, error } = await supabase.auth.updateUser({
+      data: { fullName },
+    });
+
+    if (error) throw new Error(error);
+    return data;
+  }
   // 1. Avatar
-  const { data, error } = await supabase.auth.getUser();
-  const fileName = `avatar-${data.user.id}-${Math.random()}`;
+  if (avatar) {
+    const { data, error } = await supabase.auth.getUser();
+    const fileName = `avatar-${data.user.id}-${Math.random()}`;
 
-  const { error: storageError } = await supabase.storage
-    .from("avatars")
-    .upload(fileName, avatar);
+    const { error: storageError } = await supabase.storage
+      .from("avatars")
+      .upload(fileName, avatar);
 
-  if (error) throw new Error(storageError.message);
+    if (error) throw new Error(storageError.message);
 
-  // 2. update avatar user
-  const { data: updatedUser, error: error2 } = await supabase.auth.updateUser({
-    data: {
-      avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`,
-    },
-  });
-  if (error2) throw new Error(storageError.message);
+    // 2. update avatar user
+    const { data: updatedUser, error: error2 } = await supabase.auth.updateUser(
+      {
+        data: {
+          avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`,
+        },
+      }
+    );
+    if (error2) throw new Error(storageError.message);
 
-  return updatedUser;
+    return updatedUser;
+  }
 }

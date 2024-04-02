@@ -2,10 +2,12 @@ import { useForm } from "react-hook-form";
 import FormRow from "../../../ui/FormRow";
 import FormButton from "../../../ui/FormButton";
 import { useUser } from "../../authentication/useUser";
-import SpinnerFullPage from "../../../ui/SpinnerFullPage";
 import useCreateDataPribadi from "./useCreateDataPribadi";
 import useDataPribadi from "./useDataPribadi";
 import toast from "react-hot-toast";
+import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
+import { updateCurrentUser } from "../../../services/apiAuth";
+import useUpdateUser from "../../authentication/useUpdateUser";
 
 export default function DataPribadi() {
   const {
@@ -13,12 +15,15 @@ export default function DataPribadi() {
   } = useUser();
 
   // FORM SECTION
-  const { register, handleSubmit, reset, formState } = useForm();
+  const { register, handleSubmit, reset, formState, getValues } = useForm();
   const { errors } = formState;
   const { createDataPribadi, isCreating } = useCreateDataPribadi();
+  const { updateUser, isUpdating } = useUpdateUser();
 
   function onSubmit(data) {
-    console.log(data);
+    const fullName = getValues().namalengkap;
+    updateUser({ fullName });
+
     createDataPribadi(data, {
       onSuccess: () => {
         reset();
@@ -41,7 +46,7 @@ export default function DataPribadi() {
   } = dataPribadi || {};
   const isVerified = Boolean(dataPribadi);
 
-  if (isLoadingData || isCreating) return <SpinnerFullPage />;
+  if (isLoadingData || isCreating) return <SpinnerFullContainer />;
 
   return (
     <form

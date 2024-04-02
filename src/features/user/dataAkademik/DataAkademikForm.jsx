@@ -3,6 +3,7 @@ import FormRow from "../../../ui/FormRow";
 import FormButton from "../../../ui/FormButton";
 import { useState } from "react";
 import useBeasiswa from "./useBeasiswa";
+import { useUser } from "../../authentication/useUser";
 
 export default function DataAkademikForm() {
   const { register, handleSubmit, formState } = useForm();
@@ -10,6 +11,10 @@ export default function DataAkademikForm() {
 
   const [beasiswaCount, setBeasiswaCount] = useState(0);
   let arr = Array.apply(null, { length: beasiswaCount });
+
+  const {
+    user: { nim },
+  } = useUser();
 
   function onSubmit(data) {
     const { jenisBeasiswa } = useBeasiswa(data, beasiswaCount);
@@ -45,10 +50,8 @@ export default function DataAkademikForm() {
           type="number"
           id="ips"
           className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
-          disabled
           {...register("ips", {
             required: "Kolom input wajib diisi!",
-            value: 3.88,
           })}
         />
       </FormRow>
@@ -61,10 +64,8 @@ export default function DataAkademikForm() {
           type="text"
           id="ipk"
           className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
-          disabled
           {...register("ipk", {
             required: "Kolom input wajib diisi!",
-            value: 3.72,
           })}
         />
       </FormRow>
@@ -77,10 +78,8 @@ export default function DataAkademikForm() {
           type="number"
           id="lamastudi"
           className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
-          disabled
           {...register("lamastudi", {
             required: "Kolom input wajib diisi!",
-            value: 3.5,
           })}
         />
       </FormRow>

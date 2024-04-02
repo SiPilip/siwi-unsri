@@ -3,23 +3,19 @@ import WarnBox from "../../../components/WarnBox";
 import ContentTitle from "../../../ui/ContentTitle";
 import ProgressBar from "../../../ui/ProgressBar";
 import FormCard from "../../../ui/FormCard";
-import useVerifiedDataPribadi from "../datapendaftar/useVerifiedDataPribadi";
 import SpinnerFullPage from "../../../ui/SpinnerFullPage";
+import useDataOrangTua from "../datapendaftar/useDataOrangTua";
+import useDataPribadi from "../datapendaftar/useDataPribadi";
+import { useUser } from "../../authentication/useUser";
+import useProgress from "./useProgress";
+import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
 
 export default function Beranda() {
   const [isShow, setIsShow] = useState(true);
+  const { progress, isVerifiedDataOrangTua, isVerifiedDataPribadi, isLoading } =
+    useProgress();
 
-  const { isVerified: isVerifiedDataPribadi, isLoadingData } =
-    useVerifiedDataPribadi();
-
-  function progressBar() {
-    let progress = 0;
-    if (isVerifiedDataPribadi) progress = progress + 1;
-
-    return String(Number((progress / 5) * 100));
-  }
-
-  if (isLoadingData) return <SpinnerFullPage />;
+  if (isLoading) return <SpinnerFullContainer />;
 
   return (
     <>
@@ -33,9 +29,10 @@ export default function Beranda() {
 
       <section>
         <ContentTitle>Pemberkasan</ContentTitle>
-        <ProgressBar progress={progressBar()} />
+        <ProgressBar progress={progress} />
         <div className="flex justify-start flex-wrap gap-y-5 gap-x-5 w-full ">
           <FormCard condition={isVerifiedDataPribadi}>Data Pribadi</FormCard>
+          <FormCard condition={isVerifiedDataOrangTua}>Data Orang Tua</FormCard>
           <FormCard>Data Akademik</FormCard>
           <FormCard>USEPT</FormCard>
           <FormCard>Formulir Pendaftaran</FormCard>

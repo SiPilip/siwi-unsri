@@ -11,7 +11,7 @@ export default function useCreateDataPribadi() {
       toast.success("Data Pribadi anda telah disimpan!");
       queryClient.invalidateQueries({ queryKey: ["dataPribadi"] });
     },
-    onError: (err) => toast.error("aw"),
+    onError: (err) => toast.error(err),
   });
 
   return { createDataPribadi, isCreating };

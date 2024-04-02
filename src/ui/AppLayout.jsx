@@ -22,11 +22,13 @@ export default function AppLayout() {
         <aside className="border-r-gray-100 bg-white row-[1/-1] flex flex-col gap-[3.2rem] px-[2.4rem] py-[2rem] border-r border-solid">
           <MainNav />
         </aside>
-        <main className="bg-gray-50 overflow-scroll pt-16 pb-[6.4rem] px-11">
-          <div className="max-w-[120rem] flex flex-col gap-[3.2rem] mx-auto my-0 bg-white py-10 pb-14 px-10 rounded-md border-gray-100 border-[2px] -mt-5">
+        <main className="bg-gray-50 overflow-scroll pt-12 pb-[6.4rem] px-8 flex flex-col justify-start ">
+          <div className=" w-full gap-[3.2rem] mx-auto my-0 bg-white py-10 pb-14 px-10 rounded-md border-gray-100 border-[2px] -mt-5 flex flex-col">
             <Outlet />
           </div>
-          <FooterDashboard />
+          <div className="w-full mx-auto flex flex-col pl-2 pt-5 justify-start ">
+            <FooterDashboard />
+          </div>
         </main>
       </div>
     </>
