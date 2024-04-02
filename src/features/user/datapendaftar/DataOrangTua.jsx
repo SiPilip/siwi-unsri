@@ -8,7 +8,7 @@ import useDataOrangTua from "./useDataOrangTua";
 import { useUser } from "../../authentication/useUser";
 
 export default function DataOrangTua() {
-  const [status, setStatus] = useState("lengkap");
+  const [status, setStatus] = useState("Lengkap");
   const { register, handleSubmit, formState, reset } = useForm("");
   const { errors } = formState;
 
@@ -42,7 +42,7 @@ export default function DataOrangTua() {
     if (dataOrangTua) setStatus(statusorangtua);
   }, [setStatus]);
 
-  if (isCreating || isLoading) return <SpinnerFullContainer />;
+  // if (isCreating || isLoading) return <SpinnerFullContainer />;
 
   return (
     <form

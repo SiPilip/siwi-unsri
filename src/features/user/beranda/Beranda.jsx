@@ -15,7 +15,7 @@ export default function Beranda() {
   const { progress, isVerifiedDataOrangTua, isVerifiedDataPribadi, isLoading } =
     useProgress();
 
-  if (isLoading) return <SpinnerFullContainer />;
+  // if (isLoading) return <SpinnerFullContainer />;
 
   return (
     <>

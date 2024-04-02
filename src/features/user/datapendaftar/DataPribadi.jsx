@@ -46,7 +46,7 @@ export default function DataPribadi() {
   } = dataPribadi || {};
   const isVerified = Boolean(dataPribadi);
 
-  if (isLoadingData || isCreating) return <SpinnerFullContainer />;
+  if (isCreating) return <SpinnerFullContainer />;
 
   return (
     <form

@@ -1,1 +1,1 @@
-export const TOKEN_SIWI_2024 = "anjeng";
+export const TOKEN_SIWI_2024 = "anjaymabar";

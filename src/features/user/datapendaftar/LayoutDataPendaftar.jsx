@@ -12,7 +12,7 @@ export default function LayoutDataPendaftar() {
   const { isVerifiedDataOrangTua, isVerifiedDataPribadi, isLoading } =
     useProgress();
 
-  if (isLoading) return <SpinnerFullContainer />;
+  // if (isLoading) return <SpinnerFullContainer />;
 
   return (
     <>

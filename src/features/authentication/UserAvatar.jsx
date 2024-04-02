@@ -14,7 +14,7 @@ export default function UserAvatar() {
   const { dataPribadi, isLoadingData } = useDataPribadi({ nim });
   const { namalengkap } = dataPribadi || {};
 
-  if (isLoadingData) return <SpinnerMini />;
+  // if (isLoadingData) return <SpinnerMini />;
   return (
     <div className="flex gap-2 items-center font-medium text-neutral-700 text-xs text-end">
       <div>
