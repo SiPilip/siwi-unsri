@@ -5,8 +5,8 @@ import DataOrangTua from "./DataOrangTua";
 import useVerifiedDataPribadi from "./useVerifiedDataPribadi";
 
 export default function LayoutDataPendaftar() {
-  const [isShowingDataPribadi, setIsShowingDataPribadi] = useState(true);
-  const [isShowingDataOrangTua, setIsShowingDataOrangTua] = useState(false);
+  const [isShowingDataPribadi, setIsShowingDataPribadi] = useState(false);
+  const [isShowingDataOrangTua, setIsShowingDataOrangTua] = useState(true);
 
   const isVerifiedDataPribadi = useVerifiedDataPribadi();
 

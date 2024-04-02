@@ -4,17 +4,22 @@ import ContentTitle from "../../../ui/ContentTitle";
 import ProgressBar from "../../../ui/ProgressBar";
 import FormCard from "../../../ui/FormCard";
 import useVerifiedDataPribadi from "../datapendaftar/useVerifiedDataPribadi";
+import SpinnerFullPage from "../../../ui/SpinnerFullPage";
 
 export default function Beranda() {
   const [isShow, setIsShow] = useState(true);
 
-  const isVerifiedDataPribadi = useVerifiedDataPribadi();
+  const { isVerified: isVerifiedDataPribadi, isLoadingData } =
+    useVerifiedDataPribadi();
+
   function progressBar() {
     let progress = 0;
     if (isVerifiedDataPribadi) progress = progress + 1;
 
     return String(Number((progress / 5) * 100));
   }
+
+  if (isLoadingData) return <SpinnerFullPage />;
 
   return (
     <>

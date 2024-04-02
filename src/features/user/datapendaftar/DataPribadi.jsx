@@ -1,22 +1,16 @@
 import { useForm } from "react-hook-form";
 import FormRow from "../../../ui/FormRow";
 import FormButton from "../../../ui/FormButton";
-import { useDataSimak } from "../../../hooks/useDataSimak";
 import { useUser } from "../../authentication/useUser";
 import SpinnerFullPage from "../../../ui/SpinnerFullPage";
 import useCreateDataPribadi from "./useCreateDataPribadi";
-import { getDataPribadi } from "../../../services/apiDataPribadi";
 import useDataPribadi from "./useDataPribadi";
 import toast from "react-hot-toast";
 
 export default function DataPribadi() {
-  // SIMAK SECTION
   const {
     user: { nim },
   } = useUser();
-
-  const { dataSimak, isSimakLoading } = useDataSimak({ nim });
-  const { namaMahasiswa, tanggalLahir } = dataSimak || {};
 
   // FORM SECTION
   const { register, handleSubmit, reset, formState } = useForm();
@@ -37,28 +31,23 @@ export default function DataPribadi() {
 
   // CHECK DATA
   const { dataPribadi, isLoadingData } = useDataPribadi({ nim });
-  const { tempatlahir, jeniskelamin, agama, alamat } = dataPribadi || {};
+  const {
+    tempatlahir,
+    jeniskelamin,
+    agama,
+    alamat,
+    namalengkap,
+    tanggallahir,
+  } = dataPribadi || {};
   const isVerified = Boolean(dataPribadi);
 
-  if (isSimakLoading || isLoadingData) return <SpinnerFullPage />;
+  if (isLoadingData || isCreating) return <SpinnerFullPage />;
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onError)}
       className="flex flex-col gap-5 "
     >
-      <FormRow label="Nama Lengkap" error={errors?.nama?.message} required>
-        <input
-          type="text"
-          id="namalengkap"
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
-          disabled
-          {...register("namalengkap", {
-            required: "Kolom input wajib diisi!",
-            value: namaMahasiswa,
-          })}
-        />
-      </FormRow>
       <FormRow
         label="Nomor Induk Mahasiswa"
         error={errors?.nim?.message}
@@ -75,6 +64,18 @@ export default function DataPribadi() {
           })}
         />
       </FormRow>
+      <FormRow label="Nama Lengkap" error={errors?.nama?.message} required>
+        <input
+          type="text"
+          id="namalengkap"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
+          disabled={isVerified}
+          value={namalengkap}
+          {...register("namalengkap", {
+            required: "Kolom input wajib diisi!",
+          })}
+        />
+      </FormRow>
       <FormRow
         label="Tanggal Lahir"
         error={errors?.tanggallahir?.message}
@@ -83,11 +84,11 @@ export default function DataPribadi() {
         <input
           type="date"
           id="tanggallahir"
-          disabled
+          disabled={isVerified}
+          value={tanggallahir}
           className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
           {...register("tanggallahir", {
             required: "Kolom input wajib diisi!",
-            value: tanggalLahir,
           })}
         />
       </FormRow>
@@ -122,6 +123,7 @@ export default function DataPribadi() {
             required: "Kolom input wajib diisi!",
           })}
         >
+          <option value="">-</option>
           <option value="Pria">Pria</option>
           <option value="Perempuan">Perempuan</option>
         </select>
@@ -137,6 +139,7 @@ export default function DataPribadi() {
             required: "Kolom input wajib diisi!",
           })}
         >
+          <option value="Islam">-</option>
           <option value="Islam">Islam</option>
           <option value="Protestan">Kristen Protestan</option>
           <option value="Katolik">Katolik</option>
@@ -159,13 +162,13 @@ export default function DataPribadi() {
           {...register("alamat", {
             required: "Kolom input wajib diisi!",
             maxLength: {
-              value: 50,
+              value: 100,
               message: "Batas Pengisian 50 character",
             },
           })}
         />
       </FormRow>
-      <FormButton label={"Simpan Data"} />
+      <FormButton label={"Simpan Data"} disabled={isVerified} />
     </form>
   );
 }

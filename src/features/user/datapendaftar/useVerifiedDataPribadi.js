@@ -6,8 +6,8 @@ export default function useVerifiedDataPribadi() {
     user: { nim },
   } = useUser();
 
-  const { dataPribadi } = useDataPribadi({ nim });
+  const { dataPribadi, isLoadingData } = useDataPribadi({ nim });
   const isVerified = Boolean(dataPribadi);
 
-  return isVerified;
+  return { isVerified, isLoadingData };
 }
