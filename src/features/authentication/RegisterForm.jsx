@@ -11,6 +11,8 @@ import {
 import { TOKEN_SIWI_2024 } from "../../env/TOKEN_SIWI";
 import toast from "react-hot-toast";
 import useSignup from "./useSignup";
+import SpinnerFullPage from "../../ui/SpinnerFullPage";
+import { useEffect } from "react";
 export default function RegisterForm() {
   const TOKEN = TOKEN_SIWI_2024;
 

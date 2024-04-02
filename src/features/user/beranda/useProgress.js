@@ -3,7 +3,7 @@ import { useUser } from "../../authentication/useUser";
 import useDataOrangTua from "../datapendaftar/useDataOrangTua";
 import useDataPribadi from "../datapendaftar/useDataPribadi";
 
-export default async function useProgress() {
+export default function useProgress() {
   const {
     user: { id, nim },
   } = useUser();
@@ -15,10 +15,10 @@ export default async function useProgress() {
     id,
   });
 
-  const isLoading = isLoadingDataOrangTua || isLoadingDataPribadi;
-
   const isVerifiedDataPribadi = Boolean(dataPribadi);
   const isVerifiedDataOrangTua = Boolean(dataOrangTua);
+
+  const isLoading = isLoadingDataOrangTua || isLoadingDataPribadi;
 
   let progress = 0;
   if (isVerifiedDataPribadi) progress = progress + 1;

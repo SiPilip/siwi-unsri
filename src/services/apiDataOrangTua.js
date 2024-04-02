@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import supabase from "./supabase";
 
 export async function createDataOrangTua(newDataOrangTua) {
@@ -13,13 +14,13 @@ export async function createDataOrangTua(newDataOrangTua) {
 }
 
 export async function getDataOrangTua({ id }) {
-  const { data: dataorangtua, error: errorGetDataOrangTua } = await supabase
+  const { data: dataorangtua, error } = await supabase
     .from("dataorangtua")
     .select("*")
-    .eq("id", id)
-    .single();
+    .eq("id", id).single;
 
-  if (errorGetDataOrangTua) {
+  if (error) {
+    console.error(error);
     throw new Error("Data tidak bisa di ambil!");
   }
 

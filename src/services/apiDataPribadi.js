@@ -20,7 +20,7 @@ export async function getDataPribadi({ nim }) {
     .single();
 
   if (error) {
-    return null;
+    throw new Error(error);
   }
 
   return datapribadi;
