@@ -1,31 +1,61 @@
 import { useForm } from "react-hook-form";
 import FormRow from "../../../ui/FormRow";
 import FormButton from "../../../ui/FormButton";
+import { useDataSimak } from "../../../hooks/useDataSimak";
+import { useUser } from "../../authentication/useUser";
+import SpinnerFullPage from "../../../ui/SpinnerFullPage";
+import useCreateDataPribadi from "./useCreateDataPribadi";
+import { getDataPribadi } from "../../../services/apiDataPribadi";
+import useDataPribadi from "./useDataPribadi";
+import toast from "react-hot-toast";
 
 export default function DataPribadi() {
-  const { register, handleSubmit, reset, formState } = useForm();
+  // SIMAK SECTION
+  const {
+    user: { nim },
+  } = useUser();
 
+  const { dataSimak, isSimakLoading } = useDataSimak({ nim });
+  const { namaMahasiswa, tanggalLahir } = dataSimak || {};
+
+  // FORM SECTION
+  const { register, handleSubmit, reset, formState } = useForm();
   const { errors } = formState;
+  const { createDataPribadi, isCreating } = useCreateDataPribadi();
 
   function onSubmit(data) {
     console.log(data);
+    createDataPribadi(data, {
+      onSuccess: () => {
+        reset();
+      },
+    });
   }
-  function onError() {}
+  function onError() {
+    toast.error("Cek kembali input anda!");
+  }
+
+  // CHECK DATA
+  const { dataPribadi, isLoadingData } = useDataPribadi({ nim });
+  const { tempatlahir, jeniskelamin, agama, alamat } = dataPribadi || {};
+  const isVerified = Boolean(dataPribadi);
+
+  if (isSimakLoading || isLoadingData) return <SpinnerFullPage />;
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onError)}
-      className="flex flex-col gap-5"
+      className="flex flex-col gap-5 "
     >
       <FormRow label="Nama Lengkap" error={errors?.nama?.message} required>
         <input
           type="text"
-          id="nama"
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          id="namalengkap"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
           disabled
-          {...register("nama", {
+          {...register("namalengkap", {
             required: "Kolom input wajib diisi!",
-            value: "Dian Maheru",
+            value: namaMahasiswa,
           })}
         />
       </FormRow>
@@ -38,10 +68,10 @@ export default function DataPribadi() {
           type="text"
           id="nim"
           disabled
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
           {...register("nim", {
             required: "Kolom input wajib diisi!",
-            value: "09021182227014",
+            value: nim,
           })}
         />
       </FormRow>
@@ -54,10 +84,10 @@ export default function DataPribadi() {
           type="date"
           id="tanggallahir"
           disabled
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
           {...register("tanggallahir", {
             required: "Kolom input wajib diisi!",
-            value: "2004-10-19",
+            value: tanggalLahir,
           })}
         />
       </FormRow>
@@ -69,8 +99,9 @@ export default function DataPribadi() {
         <input
           type="text"
           id="tempatlahir"
-          defaultValue="Makassar"
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
+          disabled={isVerified}
+          value={tempatlahir}
           {...register("tempatlahir", {
             required: "Kolom input wajib diisi!",
           })}
@@ -81,39 +112,56 @@ export default function DataPribadi() {
         error={errors?.jeniskelamin?.message}
         required
       >
-        <input
+        <select
           type="text"
           id="jeniskelamin"
-          defaultValue="Laki-laki"
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:bg-gray-100 disabled:border-gray-300"
+          disabled={isVerified}
+          value={jeniskelamin}
           {...register("jeniskelamin", {
             required: "Kolom input wajib diisi!",
           })}
-        />
+        >
+          <option value="Pria">Pria</option>
+          <option value="Perempuan">Perempuan</option>
+        </select>
       </FormRow>
       <FormRow label="Agama" error={errors?.agama?.message} required>
-        <input
+        <select
           type="text"
           id="agama"
-          defaultValue="Islam"
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:bg-gray-100 disabled:border-gray-300"
+          disabled={isVerified}
+          value={agama}
           {...register("agama", {
             required: "Kolom input wajib diisi!",
           })}
-        />
+        >
+          <option value="Islam">Islam</option>
+          <option value="Protestan">Kristen Protestan</option>
+          <option value="Katolik">Katolik</option>
+          <option value="Hindu">Hindu</option>
+          <option value="Buddha">Buddha</option>
+          <option value="Konghucu">Konghucu</option>
+        </select>
       </FormRow>
       <FormRow
         label=" Domisili / Tempat Tinggal / Alamat Lengkap"
         error={errors?.alamat?.message}
         required
       >
-        <input
+        <textarea
           type="text"
           id="alamat"
-          defaultValue="Komp. Sukarami Indah Blok B.1 No.8"
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
+          disabled={isVerified}
+          value={alamat}
           {...register("alamat", {
             required: "Kolom input wajib diisi!",
+            maxLength: {
+              value: 50,
+              message: "Batas Pengisian 50 character",
+            },
           })}
         />
       </FormRow>

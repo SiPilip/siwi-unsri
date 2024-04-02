@@ -29,7 +29,6 @@ export default function LoginForm() {
           disabled={isLoading}
           {...register("nim", {
             required: "Nomor Induk Mahasiswa wajib diisi!",
-            value: "09021282227113",
           })}
         />
       </LoginFormRow>
@@ -42,7 +41,6 @@ export default function LoginForm() {
           icon={<HiMiniKey />}
           {...register("password", {
             required: "Kata Sandi wajib diisi!",
-            value: "123456",
           })}
         />
       </LoginFormRow>

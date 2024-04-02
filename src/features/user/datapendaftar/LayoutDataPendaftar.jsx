@@ -2,10 +2,13 @@ import { useState } from "react";
 import SubHeaderDataPendaftar from "./SubHeaderDataPendaftar";
 import DataPribadi from "./DataPribadi";
 import DataOrangTua from "./DataOrangTua";
+import useVerifiedDataPribadi from "./useVerifiedDataPribadi";
 
 export default function LayoutDataPendaftar() {
-  const [isShowingDataPribadi, setIsShowingDataPribadi] = useState(false);
+  const [isShowingDataPribadi, setIsShowingDataPribadi] = useState(true);
   const [isShowingDataOrangTua, setIsShowingDataOrangTua] = useState(false);
+
+  const isVerifiedDataPribadi = useVerifiedDataPribadi();
 
   return (
     <>
@@ -13,7 +16,7 @@ export default function LayoutDataPendaftar() {
         title={"Data Pribadi"}
         isShowing={isShowingDataPribadi}
         handleClick={() => setIsShowingDataPribadi((show) => !show)}
-        verified
+        verified={isVerifiedDataPribadi}
       />
       {isShowingDataPribadi && <DataPribadi />}
 

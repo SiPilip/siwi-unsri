@@ -40,7 +40,15 @@ export async function getCurrentUser() {
 
   if (error) throw new Error(error.message);
 
-  return data?.user;
+  const datatemp = data?.user;
+
+  const email = data?.user.email;
+  const nim = email.substring(0, 14);
+
+  datatemp["nim"] = nim;
+
+  // console.log(datatemp);
+  return datatemp;
 }
 
 export async function updateCurrentUser({ avatar }) {
