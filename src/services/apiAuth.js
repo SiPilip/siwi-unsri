@@ -36,7 +36,7 @@ export async function getCurrentUser() {
 
   if (error) throw new Error(error.message);
 
-  return data;
+  return data?.user;
 }
 
 export async function updateCurrentUser({ avatar, fullName }) {

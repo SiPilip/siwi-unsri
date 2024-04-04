@@ -27,7 +27,7 @@ export default function TranskripNilaiForm() {
       setError("File anda diatas 300kb");
       return;
     }
-    createTranskrip({ fileTranskrip: file1, nim });
+    createTranskrip({ fileTranskrip: file1, nim: email.substring(0,14) });
   }
 
   // CHECK DATA

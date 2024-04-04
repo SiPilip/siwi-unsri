@@ -5,14 +5,14 @@ export default function FooterDashboard() {
         Copyright@ 2024 -
         <a
           className="text-gray-700 font-semibold"
-          href="https://www.material-tailwind.com/docs/react/sidebar?ref=tailwindcomponents"
+          href="https://www.sipilip.com"
           target="_blank"
         >
           {" SIWI UNSRI "}
         </a>
         by
         <a
-          href="https://www.creative-tim.com?ref=tailwindcomponents"
+          href="https://www.sipilip.com"
           className="text-gray-700 font-semibold"
           target="_blank"
         >

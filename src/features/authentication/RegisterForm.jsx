@@ -52,7 +52,7 @@ export default function RegisterForm() {
       <LoginFormRow label="Email Mahasiswa" error={errors?.email?.message}>
         <input
           type="text"
-          className="focus:outline-none w-full focus:bg-transparent active:bg-transparent"
+          className="focus:outline-none w-full focus:bg-transparent active:bg-transparent "
           id="email"
           disabled={isLoading}
           icon={<HiMiniEnvelope />}

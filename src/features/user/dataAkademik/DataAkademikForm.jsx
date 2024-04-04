@@ -56,7 +56,7 @@ export default function DataAkademikForm() {
         <input
           type="text"
           id="nim"
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
           disabled
           {...register("nim", {
             required: "Kolom input wajib diisi!",
@@ -72,7 +72,7 @@ export default function DataAkademikForm() {
           type="number"
           id="ips"
           step="0.01"
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
           disabled={isVerified}
           value={ips}
           {...register("ips", {
@@ -91,7 +91,7 @@ export default function DataAkademikForm() {
         <input
           type="number"
           id="semesterterakhir"
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
           disabled={isVerified}
           value={semesterterakhir}
           {...register("semesterterakhir", {
@@ -111,7 +111,7 @@ export default function DataAkademikForm() {
           type="number"
           step="0.01"
           id="ipk"
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
           disabled={isVerified}
           value={ipk}
           {...register("ipk", {
@@ -132,7 +132,7 @@ export default function DataAkademikForm() {
           type="number"
           id="lamastudi"
           step="0.01"
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
           disabled={isVerified}
           value={lamastudi}
           {...register("lamastudi", {
@@ -148,7 +148,7 @@ export default function DataAkademikForm() {
         <input
           type="number"
           id="totalbeasiswa"
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-max"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-max disabled:text-gray-500"
           value={beasiswaCount || totalbeasiswa}
           disabled={isVerified}
           {...register("totalbeasiswa", {
@@ -172,7 +172,7 @@ export default function DataAkademikForm() {
                 <input
                   type="text"
                   id={`beasiswa${index}`}
-                  className="border-2 px-2 py-1 border-neutral-200 rounded-md w-max"
+                  className="border-2 px-2 py-1 border-neutral-200 rounded-md w-max disabled:text-gray-500"
                   {...register(`beasiswa${index}`, {
                     required: "Kolom beasiswa wajib diisi!",
                   })}
@@ -190,7 +190,7 @@ export default function DataAkademikForm() {
                 <input
                   type="text"
                   id={`beasiswa${index}`}
-                  className="border-2 px-2 py-1 border-neutral-200 rounded-md w-max"
+                  className="border-2 px-2 py-1 border-neutral-200 rounded-md w-max disabled:text-gray-500"
                   value={e}
                   disabled
                   {...register(`beasiswa${index}`, {
