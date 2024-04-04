@@ -1,9 +1,18 @@
 import DashboardLogo from "../components/DashboardLogo";
+import useProgress from "../features/user/beranda/useProgress";
 import NavbarItem from "./NavbarItem";
 import NavbarItemHead from "./NavbarItemHead";
 
 export default function MainNav() {
-  const isOpenPraWisuda = true;
+  const isOpenPraWisuda = false;
+  const {
+    isVerifiedDataOrangTua,
+    isVerifiedDataPribadi,
+    isVerifiedDataAkademik,
+    isVerifiedDataTranskrip,
+    isVerifiedDataUsept,
+  } = useProgress();
+
   return (
     <>
       <DashboardLogo />
@@ -12,9 +21,18 @@ export default function MainNav() {
 
         <NavbarItemHead>Data Mahasiswa</NavbarItemHead>
         <NavbarItem to="/datapendaftar">Data Pendaftar</NavbarItem>
-        <NavbarItem to="/dataakademik">Data Akademik</NavbarItem>
-        <NavbarItem to="/transkripnilai">Transkrip Nilai</NavbarItem>
-        <NavbarItem to="/usept">USEPT</NavbarItem>
+        <NavbarItem
+          to="/dataakademik"
+          disable={!isVerifiedDataOrangTua || !isVerifiedDataPribadi}
+        >
+          Data Akademik
+        </NavbarItem>
+        <NavbarItem to="/transkripnilai" disable={!isVerifiedDataAkademik}>
+          Transkrip Nilai
+        </NavbarItem>
+        <NavbarItem to="/usept" disable={!isVerifiedDataTranskrip}>
+          USEPT
+        </NavbarItem>
 
         <NavbarItemHead>Pra-Wisuda</NavbarItemHead>
         <NavbarItem to="/daftar" disable={!isOpenPraWisuda}>
