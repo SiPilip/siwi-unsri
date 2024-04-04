@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
 import { useUser } from "../../authentication/useUser";
+import useDataAkademik from "../dataAkademik/useDataAkademik";
 import useDataOrangTua from "../datapendaftar/useDataOrangTua";
 import useDataPribadi from "../datapendaftar/useDataPribadi";
+import useTranskrip from "../transkripnilai/useTranskrip";
 
 export default function useProgress() {
   const { user: {id}} = useUser();
@@ -8,37 +11,44 @@ export default function useProgress() {
   const {
     data: dataPribadi,
     isLoadingData: isLoadingDataPribadi,
-    error,
   } = useDataPribadi({
     id,
   });
   const {
     data: dataOrangTua,
     isLoading: isLoadingDataOrangTua,
-    error: error2,
   } = useDataOrangTua({
     id,
   });
-
-  if (error || error2) {
-    console.error("Data tidak bisa diambil");
-    throw new Error("Data tidak bisa diambil");
-  }
+  const {
+    data: dataAkademik,
+    isLoading: isLoadingDataAkademik,
+  } = useDataAkademik(
+    id,
+  );
+    const {
+    data: dataTranskrip,
+    isLoading: isLoadingTranskrip,
+  } = useTranskrip(
+    id,
+  );
 
   const isVerifiedDataPribadi = Boolean(dataPribadi);
   const isVerifiedDataOrangTua = Boolean(dataOrangTua);
+  const isVerifiedDataAkademik = Boolean(dataAkademik);
+  const isVerifiedDataTranskrip = Boolean(dataTranskrip);
 
-  const isLoading = isLoadingDataOrangTua || isLoadingDataPribadi;
-
-  let progress = 0;
-  if (isVerifiedDataPribadi) progress = progress + 1;
-  if (isVerifiedDataOrangTua) progress = progress + 1;
-  progress = String(Math.floor(Number((progress / 6) * 100)));
+  const isLoading = isLoadingDataOrangTua || isLoadingDataPribadi || isLoadingDataAkademik || isLoadingTranskrip;
+    
+  const progressTotal = Number(isVerifiedDataAkademik + isVerifiedDataOrangTua + isVerifiedDataPribadi + isVerifiedDataTranskrip);
+  const progress = (String(Math.floor(Number((progressTotal / 5) * 100))))
 
   return {
     progress,
     isVerifiedDataPribadi,
     isVerifiedDataOrangTua,
+    isVerifiedDataAkademik,
+    isVerifiedDataTranskrip,
     isLoading,
   };
 }

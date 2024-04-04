@@ -8,10 +8,10 @@ import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
 
 export default function Beranda() {
   const [isShow, setIsShow] = useState(true);
-  const { progress, isVerifiedDataOrangTua, isVerifiedDataPribadi, isLoading } =
+  const { progress, isVerifiedDataOrangTua, isVerifiedDataPribadi, isVerifiedDataAkademik, isVerifiedDataTranskrip,isLoading } =
     useProgress();
 
-  if (isLoading) return <SpinnerFullContainer />;
+
 
   return (
     <>
@@ -23,22 +23,23 @@ export default function Beranda() {
         />
       )}
 
+
       <section>
         <ContentTitle>Pemberkasan</ContentTitle>
         <ProgressBar progress={progress} />
         <div className="flex justify-start flex-wrap gap-y-5 gap-x-5 w-full ">
           <FormCard condition={isVerifiedDataPribadi}>Data Pribadi</FormCard>
           <FormCard condition={isVerifiedDataOrangTua}>Data Orang Tua</FormCard>
-          <FormCard>Data Akademik</FormCard>
+          <FormCard condition={isVerifiedDataAkademik}>Data Akademik</FormCard>
+          <FormCard condition={isVerifiedDataTranskrip}>Transkrip Nilai</FormCard>
           <FormCard>USEPT</FormCard>
-          <FormCard>Formulir Pendaftaran</FormCard>
-          <FormCard>Transkrip Nilai</FormCard>
         </div>
       </section>
       <section>
         <ContentTitle>Pra-wisuda</ContentTitle>
         <ProgressBar progress="0" />
         <div className=" flex justify-start flex-wrap gap-y-5 gap-x-5">
+          <FormCard isOpened={false}>Formulir Pendaftaran</FormCard>
           <FormCard isOpened={false}>Pembayaran</FormCard>
           <FormCard isOpened={false}>Seat System</FormCard>
           <FormCard isOpened={false}>Kartu Undangan</FormCard>
