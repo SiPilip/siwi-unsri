@@ -60,7 +60,7 @@ export default function DataAkademikForm() {
           disabled
           {...register("nim", {
             required: "Kolom input wajib diisi!",
-            value: email.substring(0,14),
+            value: email.substring(0, 14),
           })}
         />
       </FormRow>
@@ -145,22 +145,36 @@ export default function DataAkademikForm() {
       </FormRow>
 
       <FormRow label="Beasiswa Diikuti">
-        <input
-          type="number"
-          id="totalbeasiswa"
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-max disabled:text-gray-500"
-          value={beasiswaCount || totalbeasiswa}
-          disabled={isVerified}
-          {...register("totalbeasiswa", {
-            required: "Kolom input wajib diisi!",
-            valueAsNumber: true,
-          })}
-          onChange={(e) => {
-            e.target.value < 0
-              ? setBeasiswaCount(0)
-              : setBeasiswaCount(e.target.value);
-          }}
-        />
+        {!isVerified ? (
+          <input
+            type="number"
+            id="totalbeasiswa"
+            className="border-2 px-2 py-1 border-neutral-200 rounded-md w-max disabled:text-gray-500"
+            value={beasiswaCount}
+            disabled={isVerified}
+            {...register("totalbeasiswa", {
+              required: "Kolom input wajib diisi!",
+              valueAsNumber: true,
+            })}
+            onChange={(e) => {
+              e.target.value < 0
+                ? setBeasiswaCount(0)
+                : setBeasiswaCount(e.target.value);
+            }}
+          />
+        ) : (
+          <input
+            type="number"
+            id="totalbeasiswa"
+            className="border-2 px-2 py-1 border-neutral-200 rounded-md w-max disabled:text-gray-500"
+            value={totalbeasiswa}
+            disabled={isVerified}
+            {...register("totalbeasiswa", {
+              required: "Kolom input wajib diisi!",
+              valueAsNumber: true,
+            })}
+          />
+        )}
       </FormRow>
 
       {!isVerified ? (
