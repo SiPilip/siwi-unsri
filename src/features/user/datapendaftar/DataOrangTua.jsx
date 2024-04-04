@@ -11,15 +11,14 @@ import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
 export default function DataOrangTua() {
   const { register, handleSubmit, formState, reset } = useForm("");
   const { errors } = formState;
-  
+
   const {
-    user: { id, email},
+    user: { id, email },
   } = useUser();
-  
+
   const { createDataOrangTua, isCreating } = useCreateDataOrangTua();
   function onSubmit(data) {
-    data["nim"] = email.substring(0,14);
-    console.log(data)
+    data["nim"] = email.substring(0, 14);
     createDataOrangTua(data, {
       onSuccess: () => {
         reset();
@@ -29,7 +28,7 @@ export default function DataOrangTua() {
   function onError() {
     toast.error("Cek kembali input anda!");
   }
-  
+
   const { isLoading: isLoadingData, data: dataOrangTua } = useDataOrangTua({
     id,
   });
@@ -41,18 +40,18 @@ export default function DataOrangTua() {
     telpibu,
     namawali,
     telpwali,
-  } = dataOrangTua || {}
+  } = dataOrangTua || {};
   const isVerified = Boolean(dataOrangTua);
   const [status, setStatus] = useState(statusorangtua || "Lengkap");
-  useEffect(()=>{
-    setStatus(statusorangtua)
-  },[statusorangtua])
+  useEffect(() => {
+    setStatus(statusorangtua);
+  }, [statusorangtua]);
   if (isCreating || isLoadingData) return <SpinnerFullContainer />;
-  
+
   return (
     <form
-    onSubmit={handleSubmit(onSubmit, onError)}
-    className="flex flex-col gap-5"
+      onSubmit={handleSubmit(onSubmit, onError)}
+      className="flex flex-col gap-5"
     >
       <FormRow
         label="Status Orang Tua"

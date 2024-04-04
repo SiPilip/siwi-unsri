@@ -1,4 +1,4 @@
-export default function TableLayoutUSEPT() {
+export default function TableLayoutUSEPT({ isVerified = false }) {
   const data = [
     {
       tanggal_test: "12-OKTOBER-2024",
@@ -47,7 +47,11 @@ export default function TableLayoutUSEPT() {
   ];
 
   return (
-    <div className=" rounded-lg overflow-hidden w-full h-full text-center uppercase mb-5">
+    <div
+      className={`rounded-lg overflow-hidden w-full h-full text-center uppercase mb-5 relative ${
+        isVerified && "select-none cursor-not-allowed"
+      }`}
+    >
       <table className="w-full h-full min-w-full min-h-[200px] table-auto ">
         <thead>
           <tr>

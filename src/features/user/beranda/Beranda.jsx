@@ -7,8 +7,14 @@ import useProgress from "./useProgress";
 
 export default function Beranda() {
   const [isShow, setIsShow] = useState(true);
-  const { progress, isVerifiedDataOrangTua, isVerifiedDataPribadi, isVerifiedDataAkademik, isVerifiedDataTranskrip} =
-    useProgress();
+  const {
+    progress,
+    isVerifiedDataOrangTua,
+    isVerifiedDataPribadi,
+    isVerifiedDataAkademik,
+    isVerifiedDataTranskrip,
+    isVerifiedDataUsept,
+  } = useProgress();
 
   return (
     <>
@@ -20,7 +26,6 @@ export default function Beranda() {
         />
       )}
 
-
       <section>
         <ContentTitle>Pemberkasan</ContentTitle>
         <ProgressBar progress={progress} />
@@ -28,8 +33,10 @@ export default function Beranda() {
           <FormCard condition={isVerifiedDataPribadi}>Data Pribadi</FormCard>
           <FormCard condition={isVerifiedDataOrangTua}>Data Orang Tua</FormCard>
           <FormCard condition={isVerifiedDataAkademik}>Data Akademik</FormCard>
-          <FormCard condition={isVerifiedDataTranskrip}>Transkrip Nilai</FormCard>
-          <FormCard>USEPT</FormCard>
+          <FormCard condition={isVerifiedDataTranskrip}>
+            Transkrip Nilai
+          </FormCard>
+          <FormCard condition={isVerifiedDataUsept}>USEPT</FormCard>
         </div>
       </section>
       <section>

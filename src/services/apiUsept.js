@@ -1,7 +1,9 @@
 import supabase from "./supabase";
 
-export async function createUsept(dataUsept) {
-  const { data, error } = await supabase.from("datausept").insert([dataUsept]);
+export async function createUsept(nim) {
+  const { data, error } = await supabase
+    .from("datausept")
+    .insert([{ nim: nim }]);
 
   if (error) {
     console.error(error);
@@ -11,11 +13,12 @@ export async function createUsept(dataUsept) {
   return data;
 }
 
-export async function getUsept(nim) {
+export async function getUsept(id) {
   const { data, error } = await supabase
     .from("datausept")
     .select("*")
-    .eq("nim", nim);
+    .eq("id", id)
+    .maybeSingle();
 
   if (error) {
     console.error(error);
