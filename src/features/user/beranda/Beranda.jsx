@@ -4,14 +4,11 @@ import ContentTitle from "../../../ui/ContentTitle";
 import ProgressBar from "../../../ui/ProgressBar";
 import FormCard from "../../../ui/FormCard";
 import useProgress from "./useProgress";
-import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
 
 export default function Beranda() {
   const [isShow, setIsShow] = useState(true);
-  const { progress, isVerifiedDataOrangTua, isVerifiedDataPribadi, isVerifiedDataAkademik, isVerifiedDataTranskrip,isLoading } =
+  const { progress, isVerifiedDataOrangTua, isVerifiedDataPribadi, isVerifiedDataAkademik, isVerifiedDataTranskrip} =
     useProgress();
-
-
 
   return (
     <>

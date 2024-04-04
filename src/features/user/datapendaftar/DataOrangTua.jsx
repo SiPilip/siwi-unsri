@@ -44,7 +44,9 @@ export default function DataOrangTua() {
   } = dataOrangTua || {}
   const isVerified = Boolean(dataOrangTua);
   const [status, setStatus] = useState(statusorangtua || "Lengkap");
-  
+  useEffect(()=>{
+    setStatus(statusorangtua)
+  },[statusorangtua])
   if (isCreating || isLoadingData) return <SpinnerFullContainer />;
   
   return (
