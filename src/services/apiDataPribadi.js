@@ -16,7 +16,8 @@ export async function getDataPribadi({ nim }) {
   const { data, error } = await supabase
     .from("datapribadi")
     .select("*")
-    .eq("nim", nim);
+    .eq("nim", nim)
+    .single();
 
   if (error) {
     console.error(error);

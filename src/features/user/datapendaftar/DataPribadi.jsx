@@ -9,15 +9,17 @@ import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
 import useUpdateUser from "../../authentication/useUpdateUser";
 
 export default function DataPribadi() {
-  const {
-    user: { nim },
-  } = useUser();
+  const { user, isUserLoading } = useUser();
+  const { email } = user?.user_metadata;
+  const nim = email?.substring(0, 14);
+  if (isUserLoading) return <SpinnerFullContainer />;
 
   // FORM SECTION
   const { register, handleSubmit, reset, formState, getValues } = useForm();
   const { errors } = formState;
   const { createDataPribadi, isCreating } = useCreateDataPribadi();
   const { updateUser, isUpdating } = useUpdateUser();
+  if (isCreating || isUpdating) return <SpinnerFullContainer />;
 
   function onSubmit(data) {
     const fullName = getValues().namalengkap;
@@ -37,6 +39,8 @@ export default function DataPribadi() {
   const { data: dataPribadi, isLoading: isLoadingData } = useDataPribadi({
     nim,
   });
+  if (isLoadingData) return <SpinnerFullContainer />;
+
   const {
     tempatlahir,
     jeniskelamin,
@@ -44,10 +48,8 @@ export default function DataPribadi() {
     alamat,
     namalengkap,
     tanggallahir,
-  } = dataPribadi?.at(0) || {};
-  const isVerified = Boolean(dataPribadi?.length);
-
-  if (isCreating || isLoadingData) return <SpinnerFullContainer />;
+  } = dataPribadi;
+  const isVerified = Boolean(dataPribadi);
 
   return (
     <form

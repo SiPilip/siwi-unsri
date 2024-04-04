@@ -17,7 +17,8 @@ export async function getDataOrangTua({ id }) {
   const { data, error } = await supabase
     .from("dataorangtua")
     .select("*")
-    .eq("id", id);
+    .eq("id", id)
+    .single();
 
   if (error) {
     console.error(error);

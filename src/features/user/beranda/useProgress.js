@@ -5,9 +5,9 @@ import useDataOrangTua from "../datapendaftar/useDataOrangTua";
 import useDataPribadi from "../datapendaftar/useDataPribadi";
 
 export default function useProgress() {
-  const {
-    user: { nim, id },
-  } = useUser();
+  const { user } = useUser();
+  const { nim, id } = user?.user_metadata;
+  console.log(nim);
   const {
     data: dataPribadi,
     isLoadingData: isLoadingDataPribadi,
@@ -28,8 +28,8 @@ export default function useProgress() {
     throw new Error("Data tidak bisa diambil");
   }
 
-  const isVerifiedDataPribadi = Boolean(dataPribadi?.length);
-  const isVerifiedDataOrangTua = Boolean(dataOrangTua?.length);
+  const isVerifiedDataPribadi = Boolean(dataPribadi);
+  const isVerifiedDataOrangTua = Boolean(dataOrangTua);
 
   const isLoading = isLoadingDataOrangTua || isLoadingDataPribadi;
 
