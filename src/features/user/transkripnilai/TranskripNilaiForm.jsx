@@ -16,7 +16,7 @@ export default function TranskripNilaiForm() {
   const [error, setError] = useState("");
 
   const {
-    user: { nim },
+    user: { id, email },
   } = useUser();
 
   const { createTranskrip, isCreating } = useCreateTranskrip();
@@ -31,9 +31,9 @@ export default function TranskripNilaiForm() {
   }
 
   // CHECK DATA
-  const { isLoading, data: dataTranskrip, error: error2 } = useTranskrip(nim);
-  const { file } = dataTranskrip?.at(0) || {};
-  const isVerified = Boolean(dataTranskrip?.length);
+  const { isLoading, data: dataTranskrip } = useTranskrip(id);
+  const { file } = dataTranskrip || {};
+  const isVerified = Boolean(dataTranskrip);
   useEffect(
     function () {
       if (isVerified) {
@@ -46,7 +46,7 @@ export default function TranskripNilaiForm() {
     },
     [isVerified]
   );
-  if (isCreating) return <SpinnerFullContainer />;
+  if (isCreating || isLoading) return <SpinnerFullContainer />;
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5 ">
@@ -55,7 +55,7 @@ export default function TranskripNilaiForm() {
           type="text"
           id="nim"
           disabled
-          value={nim}
+          value={email.substring(0,14)}
           className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
         />
       </FormRow>

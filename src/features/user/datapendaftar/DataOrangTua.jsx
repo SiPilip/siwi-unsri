@@ -11,14 +11,15 @@ import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
 export default function DataOrangTua() {
   const { register, handleSubmit, formState, reset } = useForm("");
   const { errors } = formState;
-
+  
   const {
-    user: { id, nim },
+    user: { id, email},
   } = useUser();
-
+  
   const { createDataOrangTua, isCreating } = useCreateDataOrangTua();
   function onSubmit(data) {
-    data["nim"] = nim;
+    data["nim"] = email.substring(0,14);
+    console.log(data)
     createDataOrangTua(data, {
       onSuccess: () => {
         reset();
@@ -28,7 +29,7 @@ export default function DataOrangTua() {
   function onError() {
     toast.error("Cek kembali input anda!");
   }
-
+  
   const { isLoading: isLoadingData, data: dataOrangTua } = useDataOrangTua({
     id,
   });
@@ -40,16 +41,16 @@ export default function DataOrangTua() {
     telpibu,
     namawali,
     telpwali,
-  } = dataOrangTua?.at(0) || {};
-  const isVerified = Boolean(dataOrangTua?.length);
-  const [status, setStatus] = useState(statusorangtua);
-
+  } = dataOrangTua || {}
+  const isVerified = Boolean(dataOrangTua);
+  const [status, setStatus] = useState(statusorangtua || "Lengkap");
+  
   if (isCreating || isLoadingData) return <SpinnerFullContainer />;
-
+  
   return (
     <form
-      onSubmit={handleSubmit(onSubmit, onError)}
-      className="flex flex-col gap-5"
+    onSubmit={handleSubmit(onSubmit, onError)}
+    className="flex flex-col gap-5"
     >
       <FormRow
         label="Status Orang Tua"
@@ -63,7 +64,7 @@ export default function DataOrangTua() {
           {...register("statusorangtua")}
           onChange={(e) => setStatus(e.target.value)}
           disabled={isVerified}
-          value={statusorangtua}
+          value={status}
         >
           <option value="Lengkap">Lengkap</option>
           <option value="Yatim">Yatim / Tanpa Ayah</option>

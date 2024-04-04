@@ -9,22 +9,18 @@ import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
 import useUpdateUser from "../../authentication/useUpdateUser";
 
 export default function DataPribadi() {
-  const { user, isUserLoading } = useUser();
-  const { email } = user?.user_metadata;
-  const nim = email?.substring(0, 14);
-  if (isUserLoading) return <SpinnerFullContainer />;
-
+  const { user: {id, email}, isUserLoading } = useUser();
+  
   // FORM SECTION
   const { register, handleSubmit, reset, formState, getValues } = useForm();
   const { errors } = formState;
   const { createDataPribadi, isCreating } = useCreateDataPribadi();
   const { updateUser, isUpdating } = useUpdateUser();
-  if (isCreating || isUpdating) return <SpinnerFullContainer />;
-
+  
   function onSubmit(data) {
     const fullName = getValues().namalengkap;
     updateUser({ fullName });
-
+    
     createDataPribadi(data, {
       onSuccess: () => {
         reset();
@@ -34,13 +30,16 @@ export default function DataPribadi() {
   function onError() {
     toast.error("Cek kembali input anda!");
   }
-
+  
   // CHECK DATA
   const { data: dataPribadi, isLoading: isLoadingData } = useDataPribadi({
-    nim,
+    id,
   });
+  
   if (isLoadingData) return <SpinnerFullContainer />;
-
+  if (isCreating || isUpdating) return <SpinnerFullContainer />;
+  if (isUserLoading) return <SpinnerFullContainer />;
+  
   const {
     tempatlahir,
     jeniskelamin,
@@ -68,7 +67,7 @@ export default function DataPribadi() {
           className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
           {...register("nim", {
             required: "Kolom input wajib diisi!",
-            value: nim,
+            value: email.substring(0,14),
           })}
         />
       </FormRow>

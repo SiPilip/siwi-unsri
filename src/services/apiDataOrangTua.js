@@ -18,7 +18,7 @@ export async function getDataOrangTua({ id }) {
     .from("dataorangtua")
     .select("*")
     .eq("id", id)
-    .single();
+    .maybeSingle();
 
   if (error) {
     console.error(error);

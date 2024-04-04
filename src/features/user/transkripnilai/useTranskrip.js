@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { getTranskrip } from "../../../services/apiTranskrip";
 
-export default function useTranskrip(nim) {
+export default function useTranskrip(id) {
   const { isLoading, data, error } = useQuery({
     queryKey: ["dataTranskrip"],
-    queryFn: () => getTranskrip(nim),
+    queryFn: () => getTranskrip(id),
   });
 
   if (error) {

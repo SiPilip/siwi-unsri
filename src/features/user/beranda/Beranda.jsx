@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import WarnBox from "../../../components/WarnBox";
 import ContentTitle from "../../../ui/ContentTitle";
 import ProgressBar from "../../../ui/ProgressBar";
 import FormCard from "../../../ui/FormCard";
-import SpinnerFullPage from "../../../ui/SpinnerFullPage";
-import useDataOrangTua from "../datapendaftar/useDataOrangTua";
-import useDataPribadi from "../datapendaftar/useDataPribadi";
-import { useUser } from "../../authentication/useUser";
 import useProgress from "./useProgress";
 import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
 

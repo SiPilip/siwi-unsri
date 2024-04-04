@@ -7,6 +7,7 @@ import { useUser } from "../../authentication/useUser";
 import useCreateDataAkaddemik from "./useCreateDataAkademik";
 import useDataAkademik from "./useDataAkademik";
 import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
+import toast from "react-hot-toast";
 
 export default function DataAkademikForm() {
   const { register, handleSubmit, formState, reset } = useForm();
@@ -16,13 +17,13 @@ export default function DataAkademikForm() {
   let arr = Array.apply(null, { length: beasiswaCount });
 
   const {
-    user: { nim },
+    user: { id, email },
   } = useUser();
 
   const { createDataAkademik, isCreating } = useCreateDataAkaddemik();
   function onSubmit(data) {
-    const { dataAkademik } = useBeasiswa(data, beasiswaCount);
-    createDataAkademik(dataAkademik, {
+    const { dataFinal } = useBeasiswa(data, beasiswaCount);
+    createDataAkademik(dataFinal, {
       onSuccess: () => {
         reset();
       },
@@ -33,7 +34,7 @@ export default function DataAkademikForm() {
   }
 
   // CHECK DATA
-  const { isLoading, data: dataAkademik, error } = useDataAkademik(nim);
+  const { isLoading, data: dataAkademik } = useDataAkademik(id);
   const {
     ips,
     semesterterakhir,
@@ -41,8 +42,8 @@ export default function DataAkademikForm() {
     ipk,
     jenisbeasiswa,
     totalbeasiswa,
-  } = dataAkademik?.at(0) || [];
-  const isVerified = Boolean(dataAkademik?.length);
+  } = dataAkademik || {};
+  const isVerified = Boolean(dataAkademik);
 
   if (isCreating || isLoading) return <SpinnerFullContainer />;
 
@@ -59,7 +60,7 @@ export default function DataAkademikForm() {
           disabled
           {...register("nim", {
             required: "Kolom input wajib diisi!",
-            value: nim,
+            value: email.substring(0,14),
           })}
         />
       </FormRow>

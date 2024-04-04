@@ -18,8 +18,7 @@ export async function logout() {
 }
 
 export async function signup({ email, password }) {
-  const nim = email.substring(0, 14);
-  const { data, error } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email,
     password,
   });
@@ -27,10 +26,6 @@ export async function signup({ email, password }) {
   if (error) {
     throw new Error(error.message);
   }
-
-  const { data: data2, error: error2 } = await supabase
-    .from("dataverifikasi")
-    .insert([{ id: nim }]);
 }
 
 export async function getCurrentUser() {
@@ -41,15 +36,7 @@ export async function getCurrentUser() {
 
   if (error) throw new Error(error.message);
 
-  const datatemp = data?.user;
-
-  const email = data?.user.email;
-  const nim = email.substring(0, 14);
-
-  datatemp["nim"] = nim;
-
-  // console.log(datatemp);
-  return datatemp;
+  return data;
 }
 
 export async function updateCurrentUser({ avatar, fullName }) {

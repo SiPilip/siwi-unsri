@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { getDataPribadi } from "../../../services/apiDataPribadi";
 
-export default function useDataPribadi({ nim }) {
+export default function useDataPribadi({ id }) {
   const { isLoading, data, error } = useQuery({
     queryKey: ["dataPribadi"],
-    queryFn: () => getDataPribadi({ nim }),
+    queryFn: () => getDataPribadi({ id }),
   });
 
   if (error) {

@@ -18,11 +18,11 @@ export async function createTranskrip({ fileTranskrip, nim }) {
   return data;
 }
 
-export async function getTranskrip(nim) {
+export async function getTranskrip(id) {
   const { data, error } = await supabase
     .from("datatranskrip")
     .select("*")
-    .eq("nim", nim);
+    .eq("id", id).maybeSingle();
 
   if (error) {
     console.error(error.message);

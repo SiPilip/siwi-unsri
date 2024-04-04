@@ -14,11 +14,12 @@ export async function createDataAkademik(dataAkademik) {
   return data;
 }
 
-export async function getDataAkademik(nim) {
+export async function getDataAkademik(id) {
   let { data, error } = await supabase
     .from("dataakademik")
     .select("*")
-    .eq("nim", nim);
+    .eq("id", id).
+    maybeSingle();
 
   if (error) {
     console.error(error);

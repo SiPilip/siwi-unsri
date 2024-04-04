@@ -1,19 +1,16 @@
-import { useEffect, useState } from "react";
-import SpinnerFullPage from "../../../ui/SpinnerFullPage";
 import { useUser } from "../../authentication/useUser";
 import useDataOrangTua from "../datapendaftar/useDataOrangTua";
 import useDataPribadi from "../datapendaftar/useDataPribadi";
 
 export default function useProgress() {
-  const { user } = useUser();
-  const { nim, id } = user?.user_metadata;
-  console.log(nim);
+  const { user: {id}} = useUser();
+
   const {
     data: dataPribadi,
     isLoadingData: isLoadingDataPribadi,
     error,
   } = useDataPribadi({
-    nim,
+    id,
   });
   const {
     data: dataOrangTua,

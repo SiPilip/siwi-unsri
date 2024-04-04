@@ -12,12 +12,12 @@ export async function createDataPribadi(newDataPribadi) {
   return data;
 }
 
-export async function getDataPribadi({ nim }) {
+export async function getDataPribadi({ id }) {
   const { data, error } = await supabase
     .from("datapribadi")
     .select("*")
-    .eq("nim", nim)
-    .single();
+    .eq("id", id)
+    .maybeSingle();
 
   if (error) {
     console.error(error);

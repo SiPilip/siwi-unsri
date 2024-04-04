@@ -20,10 +20,8 @@ export default function RegisterForm() {
   const { signup, isLoading } = useSignup();
   // const { createVerifikasi, isCreatingVerifikasi } = useCreateVerifikasi();
 
-  function onSubmit({ email, password }) {
-    // const nim = email.substring(0, 14);
-    // createVerifikasi({ nim });
-    signup({ email, password }, { onSuccess: () => reset() });
+  function onSubmit({ email, password, nim }) {
+    signup({ email, password,nim }, { onSuccess: () => reset() });
   }
 
   function onError() {
