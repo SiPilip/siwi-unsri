@@ -1,8 +1,26 @@
 export default function useBeasiswa(data, beasiswaCount) {
-  const { nama, lamastudi, ips, ipk, ...values } = data;
-  const beasiswa = Object.values(values).slice(0, beasiswaCount).join(", ");
-  const jenisBeasiswa = { nama, lamastudi, ips, ipk, beasiswa };
+  const {
+    nim,
+    lamastudi,
+    ips,
+    ipk,
+    semesterterakhir,
+    totalbeasiswa,
+    ...values
+  } = data;
+  const jenisbeasiswa = Object.values(values)
+    .slice(0, beasiswaCount)
+    .join(", ");
+  const dataAkademik = {
+    nim,
+    lamastudi,
+    ips,
+    ipk,
+    jenisbeasiswa,
+    semesterterakhir,
+    totalbeasiswa,
+  };
   // {nama: 'Dian Maheru', lamastudi: 3.5, ips: 3.88, ipk: 3.72, jenisBeasiswa: 'item1, item2, item3'}
 
-  return { jenisBeasiswa };
+  return { dataAkademik };
 }

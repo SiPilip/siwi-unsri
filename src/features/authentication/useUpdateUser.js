@@ -8,7 +8,6 @@ export default function useUpdateUser() {
   const { mutate: updateUser, isLoading: isUpdating } = useMutation({
     mutationFn: updateCurrentUser,
     onSuccess: ({ user }) => {
-      console.log(user);
       toast.success("Profil berhasil diubah!");
       queryClient.setQueryData(["user"], user);
       queryClient.invalidateQueries({ queryKey: ["user"] });

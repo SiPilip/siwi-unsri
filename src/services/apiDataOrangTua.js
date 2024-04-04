@@ -14,16 +14,15 @@ export async function createDataOrangTua(newDataOrangTua) {
 }
 
 export async function getDataOrangTua({ id }) {
-  const { data: dataorangtua, error } = await supabase
+  const { data, error } = await supabase
     .from("dataorangtua")
     .select("*")
-    .eq("id", id)
-    .single();
+    .eq("id", id);
 
   if (error) {
     console.error(error);
     throw new Error("Data tidak bisa di ambil!");
   }
 
-  return dataorangtua;
+  return data;
 }

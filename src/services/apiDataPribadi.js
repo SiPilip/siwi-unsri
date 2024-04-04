@@ -13,15 +13,15 @@ export async function createDataPribadi(newDataPribadi) {
 }
 
 export async function getDataPribadi({ nim }) {
-  const { data: datapribadi, error } = await supabase
+  const { data, error } = await supabase
     .from("datapribadi")
     .select("*")
-    .eq("nim", nim)
-    .single();
+    .eq("nim", nim);
 
   if (error) {
-    throw new Error(error);
+    console.error(error);
+    throw new Error("Data tidak bisa di ambil");
   }
 
-  return datapribadi;
+  return data;
 }

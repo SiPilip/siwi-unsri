@@ -6,14 +6,19 @@ import useCreateDataOrangTua from "./useCreateDataOrangTua";
 import toast from "react-hot-toast";
 import useDataOrangTua from "./useDataOrangTua";
 import { useUser } from "../../authentication/useUser";
+import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
 
 export default function DataOrangTua() {
-  const [status, setStatus] = useState("Lengkap");
   const { register, handleSubmit, formState, reset } = useForm("");
   const { errors } = formState;
 
+  const {
+    user: { id, nim },
+  } = useUser();
+
   const { createDataOrangTua, isCreating } = useCreateDataOrangTua();
   function onSubmit(data) {
+    data["nim"] = nim;
     createDataOrangTua(data, {
       onSuccess: () => {
         reset();
@@ -24,10 +29,9 @@ export default function DataOrangTua() {
     toast.error("Cek kembali input anda!");
   }
 
-  const {
-    user: { id },
-  } = useUser();
-  const { isLoading, dataOrangTua } = useDataOrangTua({ id });
+  const { isLoading: isLoadingData, data: dataOrangTua } = useDataOrangTua({
+    id,
+  });
   const {
     statusorangtua,
     namaayah,
@@ -36,13 +40,11 @@ export default function DataOrangTua() {
     telpibu,
     namawali,
     telpwali,
-  } = dataOrangTua || {};
+  } = dataOrangTua?.at(0) || {};
+  const isVerified = Boolean(dataOrangTua?.length);
+  const [status, setStatus] = useState(statusorangtua);
 
-  useEffect(() => {
-    if (dataOrangTua) setStatus(statusorangtua);
-  }, [setStatus]);
-
-  // if (isCreating || isLoading) return <SpinnerFullContainer />;
+  if (isCreating || isLoadingData) return <SpinnerFullContainer />;
 
   return (
     <form
@@ -60,7 +62,7 @@ export default function DataOrangTua() {
           className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:bg-gray-100 disabled:border-gray-300"
           {...register("statusorangtua")}
           onChange={(e) => setStatus(e.target.value)}
-          disabled={Boolean(dataOrangTua)}
+          disabled={isVerified}
           value={statusorangtua}
         >
           <option value="Lengkap">Lengkap</option>
@@ -80,7 +82,7 @@ export default function DataOrangTua() {
               type="text"
               id="namaayah"
               className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
-              disabled={Boolean(dataOrangTua)}
+              disabled={isVerified}
               value={namaayah}
               {...register("namaayah", {
                 required: "Kolom input wajib diisi!",
@@ -96,7 +98,7 @@ export default function DataOrangTua() {
               type="text"
               id="telpayah"
               className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
-              disabled={Boolean(dataOrangTua)}
+              disabled={isVerified}
               value={telpayah}
               {...register("telpayah", {
                 required: "Kolom input wajib diisi!",
@@ -118,7 +120,7 @@ export default function DataOrangTua() {
               type="text"
               id="namaibu"
               className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
-              disabled={Boolean(dataOrangTua)}
+              disabled={isVerified}
               value={namaibu}
               {...register("namaibu", {
                 required: "Kolom input wajib diisi!",
@@ -134,7 +136,7 @@ export default function DataOrangTua() {
               type="text"
               id="telpibu"
               className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
-              disabled={Boolean(dataOrangTua)}
+              disabled={isVerified}
               value={telpibu}
               {...register("telpibu", {
                 required: "Kolom input wajib diisi!",
@@ -152,7 +154,7 @@ export default function DataOrangTua() {
               type="text"
               id="namawali"
               className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
-              disabled={Boolean(dataOrangTua)}
+              disabled={isVerified}
               value={namawali}
               {...register("namawali", {
                 required: "Kolom input wajib diisi!",
@@ -168,7 +170,7 @@ export default function DataOrangTua() {
               type="text"
               id="telpwali"
               className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
-              disabled={Boolean(dataOrangTua)}
+              disabled={isVerified}
               value={telpwali}
               {...register("telpwali", {
                 required: "Kolom input wajib diisi!",
@@ -178,7 +180,7 @@ export default function DataOrangTua() {
         </>
       )}
 
-      <FormButton label={"Simpan Data"} disabled={Boolean(dataOrangTua)} />
+      <FormButton label={"Simpan Data"} disabled={isVerified} />
     </form>
   );
 }

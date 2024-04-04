@@ -39,7 +39,7 @@ export default function UbahProfileForm() {
       </FormRow>
       <FormRow label="Ubah Gambar Profile">
         <input
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500 file:bg-unsri file:px-3 file:py-1 file:rounded-md file:mr-3 file:border-none file:text-black file:cursor-pointer file:-ml-1"
           type="file"
           id="avatar"
           accept="image/*"

@@ -6,7 +6,6 @@ import useCreateDataPribadi from "./useCreateDataPribadi";
 import useDataPribadi from "./useDataPribadi";
 import toast from "react-hot-toast";
 import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
-import { updateCurrentUser } from "../../../services/apiAuth";
 import useUpdateUser from "../../authentication/useUpdateUser";
 
 export default function DataPribadi() {
@@ -35,7 +34,9 @@ export default function DataPribadi() {
   }
 
   // CHECK DATA
-  const { dataPribadi, isLoadingData } = useDataPribadi({ nim });
+  const { data: dataPribadi, isLoading: isLoadingData } = useDataPribadi({
+    nim,
+  });
   const {
     tempatlahir,
     jeniskelamin,
@@ -43,10 +44,10 @@ export default function DataPribadi() {
     alamat,
     namalengkap,
     tanggallahir,
-  } = dataPribadi || {};
-  const isVerified = Boolean(dataPribadi);
+  } = dataPribadi?.at(0) || {};
+  const isVerified = Boolean(dataPribadi?.length);
 
-  if (isCreating) return <SpinnerFullContainer />;
+  if (isCreating || isLoadingData) return <SpinnerFullContainer />;
 
   return (
     <form
@@ -89,9 +90,9 @@ export default function DataPribadi() {
         <input
           type="date"
           id="tanggallahir"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
           disabled={isVerified}
           value={tanggallahir}
-          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
           {...register("tanggallahir", {
             required: "Kolom input wajib diisi!",
           })}

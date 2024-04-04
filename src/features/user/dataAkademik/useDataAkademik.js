@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { getDataPribadi } from "../../../services/apiDataPribadi";
+import { getDataAkademik } from "../../../services/apiDataAkademik";
 
-export default function useDataPribadi({ nim }) {
+export default function useDataAkademik(nim) {
   const { isLoading, data, error } = useQuery({
-    queryKey: ["dataPribadi"],
-    queryFn: () => getDataPribadi({ nim }),
+    queryKey: ["dataAkademik"],
+    queryFn: () => getDataAkademik(nim),
   });
 
   if (error) {

@@ -10,11 +10,14 @@ export default function UserAvatar() {
   const {
     user: { nim },
   } = useUser();
+  const tahunawal = nim.substring(7, 9);
 
-  const { dataPribadi, isLoadingData } = useDataPribadi({ nim });
-  const { namalengkap } = dataPribadi || {};
+  // 09021182227014
 
-  // if (isLoadingData) return <SpinnerMini />;
+  const { data: dataPribadi, isLoading } = useDataPribadi({ nim });
+  const { namalengkap } = dataPribadi?.at(0) || {};
+
+  if (isLoading) return <SpinnerMini />;
   return (
     <div className="flex gap-2 items-center font-medium text-neutral-700 text-xs text-end">
       <div>
@@ -25,7 +28,7 @@ export default function UserAvatar() {
         className="block w-[2.5rem] aspect-square object-cover object-center rounded-full outline-[2px] outline-gray-100 bg-gray-100"
         src={
           avatar ||
-          `${supabaseUrl}/storage/v1/object/public/avatars/default-user.png`
+          `https://akademik.unsri.ac.id/images/foto_mhs/20${tahunawal}/${nim}.jpg`
         }
         alt={fullName}
       />

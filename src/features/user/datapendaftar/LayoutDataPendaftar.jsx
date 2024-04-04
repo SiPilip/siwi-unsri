@@ -9,8 +9,8 @@ export default function LayoutDataPendaftar() {
   const [isShowingDataPribadi, setIsShowingDataPribadi] = useState(false);
   const [isShowingDataOrangTua, setIsShowingDataOrangTua] = useState(false);
 
-  const { isVerifiedDataOrangTua, isVerifiedDataPribadi, isLoading } =
-    useProgress();
+  // const { isVerifiedDataOrangTua, isVerifiedDataPribadi, isLoading } =
+  //   useProgress();
 
   // if (isLoading) return <SpinnerFullContainer />;
 
@@ -20,7 +20,7 @@ export default function LayoutDataPendaftar() {
         title={"Data Pribadi"}
         isShowing={isShowingDataPribadi}
         handleClick={() => setIsShowingDataPribadi((show) => !show)}
-        verified={isVerifiedDataPribadi}
+        // verified={isVerifiedDataPribadi}
       />
       {isShowingDataPribadi && <DataPribadi />}
 
@@ -28,7 +28,7 @@ export default function LayoutDataPendaftar() {
         title={"Data Orangtua / Wali"}
         isShowing={isShowingDataOrangTua}
         handleClick={() => setIsShowingDataOrangTua((show) => !show)}
-        verified={isVerifiedDataOrangTua}
+        // verified={isVerifiedDataOrangTua}
       />
       {isShowingDataOrangTua && <DataOrangTua />}
     </>

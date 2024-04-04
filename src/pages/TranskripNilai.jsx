@@ -1,4 +1,5 @@
 import LayoutTranskripNilai from "../features/user/transkripnilai/LayoutTranskripNilai";
+import TranskripNilaiForm from "../features/user/transkripnilai/TranskripNilaiForm";
 import ContentTitle from "../ui/ContentTitle";
 
 export default function TranskripNilai() {
@@ -8,7 +9,7 @@ export default function TranskripNilai() {
         <ContentTitle>Transkrip Nilai Pendaftar</ContentTitle>
       </div>
 
-      <LayoutTranskripNilai />
+      <TranskripNilaiForm />
     </div>
   );
 }

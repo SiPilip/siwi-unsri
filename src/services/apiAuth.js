@@ -18,6 +18,7 @@ export async function logout() {
 }
 
 export async function signup({ email, password }) {
+  const nim = email.substring(0, 14);
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -27,7 +28,9 @@ export async function signup({ email, password }) {
     throw new Error(error.message);
   }
 
-  return data;
+  const { data: data2, error: error2 } = await supabase
+    .from("dataverifikasi")
+    .insert([{ id: nim }]);
 }
 
 export async function getCurrentUser() {

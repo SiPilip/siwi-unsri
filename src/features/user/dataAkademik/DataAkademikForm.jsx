@@ -4,9 +4,12 @@ import FormButton from "../../../ui/FormButton";
 import { useState } from "react";
 import useBeasiswa from "./useBeasiswa";
 import { useUser } from "../../authentication/useUser";
+import useCreateDataAkaddemik from "./useCreateDataAkademik";
+import useDataAkademik from "./useDataAkademik";
+import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
 
 export default function DataAkademikForm() {
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState, reset } = useForm();
   const { errors } = formState;
 
   const [beasiswaCount, setBeasiswaCount] = useState(0);
@@ -16,29 +19,47 @@ export default function DataAkademikForm() {
     user: { nim },
   } = useUser();
 
+  const { createDataAkademik, isCreating } = useCreateDataAkaddemik();
   function onSubmit(data) {
-    const { jenisBeasiswa } = useBeasiswa(data, beasiswaCount);
-    console.log(jenisBeasiswa);
+    const { dataAkademik } = useBeasiswa(data, beasiswaCount);
+    createDataAkademik(dataAkademik, {
+      onSuccess: () => {
+        reset();
+      },
+    });
+  }
+  function onError() {
+    toast.error("Cek kembali input anda!");
   }
 
-  function onError(e) {
-    console.error(e);
-  }
+  // CHECK DATA
+  const { isLoading, data: dataAkademik, error } = useDataAkademik(nim);
+  const {
+    ips,
+    semesterterakhir,
+    lamastudi,
+    ipk,
+    jenisbeasiswa,
+    totalbeasiswa,
+  } = dataAkademik?.at(0) || [];
+  const isVerified = Boolean(dataAkademik?.length);
+
+  if (isCreating || isLoading) return <SpinnerFullContainer />;
 
   return (
     <form
       className="flex flex-col gap-5"
       onSubmit={handleSubmit(onSubmit, onError)}
     >
-      <FormRow label="Nama Lengkap Pendaftar" error={errors?.nama?.message}>
+      <FormRow label="Nomor Induk Mahasiswa" error={errors?.nama?.message}>
         <input
           type="text"
-          id="nama"
+          id="nim"
           className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
           disabled
-          {...register("nama", {
+          {...register("nim", {
             required: "Kolom input wajib diisi!",
-            value: "Dian Maheru",
+            value: nim,
           })}
         />
       </FormRow>
@@ -49,9 +70,34 @@ export default function DataAkademikForm() {
         <input
           type="number"
           id="ips"
+          step="0.01"
           className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          disabled={isVerified}
+          value={ips}
           {...register("ips", {
             required: "Kolom input wajib diisi!",
+            validate: (value) =>
+              (value <= 4.0 && value > 0) ||
+              "Isi dengan format ips yang benar!",
+            valueAsNumber: true,
+          })}
+        />
+      </FormRow>
+      <FormRow
+        label="Semester Terakhir (Sesuai IPS)"
+        error={errors?.semesterterakhir?.message}
+      >
+        <input
+          type="number"
+          id="semesterterakhir"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          disabled={isVerified}
+          value={semesterterakhir}
+          {...register("semesterterakhir", {
+            required: "Kolom input wajib diisi!",
+            validate: (value) =>
+              (value <= 9 && value > 6) || "Isi dengan tahun yang benar!",
+            valueAsNumber: true,
           })}
         />
       </FormRow>
@@ -61,25 +107,38 @@ export default function DataAkademikForm() {
         error={errors?.ipk?.message}
       >
         <input
-          type="text"
+          type="number"
+          step="0.01"
           id="ipk"
           className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          disabled={isVerified}
+          value={ipk}
           {...register("ipk", {
             required: "Kolom input wajib diisi!",
+            validate: (value) =>
+              (value <= 4.0 && value > 0) ||
+              "Isi dengan format ipk yang benar!",
+            valueAsNumber: true,
           })}
         />
       </FormRow>
 
       <FormRow
-        label="Total Lama Studi (tahun)"
+        label="Total Lama Studi (Tahun)"
         error={errors?.lamastudi?.message}
       >
         <input
           type="number"
           id="lamastudi"
+          step="0.01"
           className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full"
+          disabled={isVerified}
+          value={lamastudi}
           {...register("lamastudi", {
             required: "Kolom input wajib diisi!",
+            validate: (value) =>
+              (value <= 5 && value > 3) || "Isi dengan tahun yang benar!",
+            valueAsNumber: true,
           })}
         />
       </FormRow>
@@ -87,9 +146,14 @@ export default function DataAkademikForm() {
       <FormRow label="Beasiswa Diikuti">
         <input
           type="number"
-          id="lamastudi"
+          id="totalbeasiswa"
           className="border-2 px-2 py-1 border-neutral-200 rounded-md w-max"
-          value={beasiswaCount}
+          value={beasiswaCount || totalbeasiswa}
+          disabled={isVerified}
+          {...register("totalbeasiswa", {
+            required: "Kolom input wajib diisi!",
+            valueAsNumber: true,
+          })}
           onChange={(e) => {
             e.target.value < 0
               ? setBeasiswaCount(0)
@@ -98,25 +162,47 @@ export default function DataAkademikForm() {
         />
       </FormRow>
 
-      <div className="flex flex-wrap gap-4">
-        {arr.map((e, index) => {
-          index += 1;
-          return (
-            <FormRow label={`Nama Beasiswa ${index}`} key={index}>
-              <input
-                type="text"
-                id={`beasiswa${index}`}
-                className="border-2 px-2 py-1 border-neutral-200 rounded-md w-max"
-                {...register(`beasiswa${index}`, {
-                  required: "Kolom beasiswa wajib diisi!",
-                })}
-              />
-            </FormRow>
-          );
-        })}
-      </div>
+      {!isVerified ? (
+        <div className="flex flex-wrap gap-4">
+          {arr.map((e, index) => {
+            index += 1;
+            return (
+              <FormRow label={`Nama Beasiswa ${index}`} key={index}>
+                <input
+                  type="text"
+                  id={`beasiswa${index}`}
+                  className="border-2 px-2 py-1 border-neutral-200 rounded-md w-max"
+                  {...register(`beasiswa${index}`, {
+                    required: "Kolom beasiswa wajib diisi!",
+                  })}
+                />
+              </FormRow>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="flex flex-wrap gap-4">
+          {jenisbeasiswa.split(", ").map((e, index) => {
+            index += 1;
+            return (
+              <FormRow label={`Nama Beasiswa ${index}`} key={index}>
+                <input
+                  type="text"
+                  id={`beasiswa${index}`}
+                  className="border-2 px-2 py-1 border-neutral-200 rounded-md w-max"
+                  value={e}
+                  disabled
+                  {...register(`beasiswa${index}`, {
+                    required: "Kolom beasiswa wajib diisi!",
+                  })}
+                />
+              </FormRow>
+            );
+          })}
+        </div>
+      )}
 
-      <FormButton label={"Konfirmasi Data"} />
+      <FormButton label={"Konfirmasi Data"} disabled={isVerified} />
     </form>
   );
 }

@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { getDataOrangTua } from "../../../services/apiDataOrangTua";
+import { getTranskrip } from "../../../services/apiTranskrip";
 
-export default function useDataOrangTua({ id }) {
+export default function useTranskrip(nim) {
   const { isLoading, data, error } = useQuery({
-    queryKey: ["dataOrangTua"],
-    queryFn: () => getDataOrangTua({ id }),
+    queryKey: ["dataTranskrip"],
+    queryFn: () => getTranskrip(nim),
   });
 
   if (error) {
