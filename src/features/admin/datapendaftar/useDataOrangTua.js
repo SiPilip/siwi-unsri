@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { getDataPribadi } from "../../../services/apiDataPribadi";
 import { useParams } from "react-router-dom";
+import { getDataOrangTua } from "../../../services/apiDataOrangTua";
 
-export default function useDataPribadi({ id }) {
+export default function useDataOrangTua() {
+  const { id } = useParams();
+
   const { isLoading, data, error } = useQuery({
-    queryKey: ["dataPribadi"],
-    queryFn: () => getDataPribadi({ id }),
+    queryKey: ["dataOrangTua", id],
+    queryFn: () => getDataOrangTua({ id }),
   });
 
   if (error) {

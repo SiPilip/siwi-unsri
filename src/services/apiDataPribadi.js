@@ -26,3 +26,14 @@ export async function getDataPribadi({ id }) {
 
   return data;
 }
+
+export async function getAllDataPribadi() {
+  let { data, error } = await supabase.from("datapribadi").select("*");
+
+  if (error) {
+    console.error(error);
+    throw new Error("Data tidak bisa di ambil");
+  }
+
+  return data;
+}

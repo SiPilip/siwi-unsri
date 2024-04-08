@@ -5,8 +5,9 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Suspense, lazy } from "react";
 import SpinnerFullPage from "./ui/SpinnerFullPage";
 import ProtectedRoute from "./features/authentication/ProtectedRoute";
-import UbahProfileForm from "./features/authentication/UbahProfileForm";
 import UbahProfile from "./pages/UbahProfile";
+import ProtectedAdminRoute from "./features/authentication/ProtectedAdminRoute";
+import AdminAppLayout from "./ui/AdminAppLayout";
 
 // PAGES
 // import PageNotFound from "./ui/PageNotFound";
@@ -41,6 +42,14 @@ const TranskripNilai = lazy(() => import("./pages/TranskripNilai"));
 const USEPT = lazy(() => import("./pages/USEPT"));
 const FormulirPendaftaran = lazy(() => import("./pages/FormulirPendaftaran"));
 
+// ADMIN
+const AdminBeranda = lazy(() => import("./pages/admin/Beranda"));
+const AdminDataPendaftar = lazy(() => import("./pages/admin/DataPendaftar"));
+const AdminDataPendaftarDetail = lazy(() =>
+  import("./pages/admin/DataPendaftarDetail")
+);
+const Pengaturan = lazy(() => import("./pages/admin/Pengaturan"));
+
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -67,6 +76,28 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="*" element={<PageNotFound />} />
+            <Route
+              element={
+                <ProtectedAdminRoute>
+                  <AdminAppLayout />
+                </ProtectedAdminRoute>
+              }
+            >
+              <Route
+                path="/admin"
+                element={<Navigate replace to="/admin/beranda" />}
+              />
+              <Route path="/admin/beranda" element={<AdminBeranda />} />
+              <Route
+                path="/admin/datapendaftar"
+                element={<AdminDataPendaftar />}
+              />
+              <Route
+                path="/admin/datapendaftar/:id"
+                element={<AdminDataPendaftarDetail />}
+              />
+              <Route path="/admin/pengaturan" element={<Pengaturan />} />
+            </Route>
           </Routes>
         </Suspense>
       </BrowserRouter>

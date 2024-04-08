@@ -3,7 +3,7 @@ import { useUser } from "./useUser";
 import { useEffect } from "react";
 import Spinner from "../../ui/Spinner";
 
-export default function ProtectedRoute({ children }) {
+export default function ProtectedAdminRoute({ children }) {
   const navigate = useNavigate();
 
   // 1. Load the authenticated user
@@ -16,10 +16,10 @@ export default function ProtectedRoute({ children }) {
       if (!isAuthenticated && !isUserLoading) {
         navigate("/login", { replace: true });
       } else {
-        if (role === "admin") navigate("/admin", { replace: true });
+        if (role === "user") navigate("/beranda", { replace: true });
       }
     },
-    [isAuthenticated, isUserLoading, role, navigate]
+    [isAuthenticated, isUserLoading, navigate, role]
   );
 
   // 3. While loading, show a spinner
@@ -31,5 +31,5 @@ export default function ProtectedRoute({ children }) {
     );
 
   // 4. If there is a user, render the app
-  if (isAuthenticated && role === "user") return children;
+  if (isAuthenticated && role === "admin") return children;
 }

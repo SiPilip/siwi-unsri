@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { getDataPribadi } from "../../../services/apiDataPribadi";
 import { useParams } from "react-router-dom";
+import { getDataAkademik } from "../../../services/apiDataAkademik";
 
-export default function useDataPribadi({ id }) {
+export default function useDataAkademik() {
+  const { id } = useParams();
+
   const { isLoading, data, error } = useQuery({
-    queryKey: ["dataPribadi"],
-    queryFn: () => getDataPribadi({ id }),
+    queryKey: ["dataAkademik", id],
+    queryFn: () => getDataAkademik(id),
   });
 
   if (error) {

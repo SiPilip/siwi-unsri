@@ -4,6 +4,8 @@ import ContentTitle from "../../../ui/ContentTitle";
 import ProgressBar from "../../../ui/ProgressBar";
 import FormCard from "../../../ui/FormCard";
 import useProgress from "./useProgress";
+import usePengaturan from "./usePengaturan";
+import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
 
 export default function Beranda() {
   const [isShow, setIsShow] = useState(true);
@@ -16,12 +18,22 @@ export default function Beranda() {
     isVerifiedDataUsept,
   } = useProgress();
 
+  const { data, isLoading } = usePengaturan();
+  const { haritutup } = data || {};
+  let date = new Date(haritutup);
+
+  let dateMDY = `${date.getDate()}-${
+    date.getMonth() + 1
+  }-${date.getFullYear()}`;
+
+  if (isLoading) return <SpinnerFullContainer />;
+
   return (
     <>
       {isShow && (
         <WarnBox
-          text2="Segera selesaikan pemberkasan anda! Sebelum tanggal"
-          text3=" xx-xx-xxxx"
+          text2="Segera selesaikan pendaftaran anda! Sebelum tanggal"
+          text3={` ${dateMDY}!`}
           onClose={() => setIsShow((e) => !e)}
         />
       )}
