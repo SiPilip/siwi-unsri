@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { getDataPribadi } from "../../../services/apiDataPribadi";
 import { getPengaturan } from "../../../services/apiPengaturan";
 
 export default function usePengaturan() {
