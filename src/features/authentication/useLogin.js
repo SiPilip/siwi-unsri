@@ -16,7 +16,7 @@ export function useLogin() {
     onSuccess: (user) => {
       queryClient.setQueryData(["user"], user.user);
       if (role === "admin") navigate("/admin", { replace: true });
-      if (role === "user") navigate("/beranda", { replace: true });
+      navigate("/beranda", { replace: true });
     },
     onError: (err) => {
       toast.error("Email atau sandi anda salah!");
