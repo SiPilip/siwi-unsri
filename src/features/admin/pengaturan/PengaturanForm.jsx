@@ -20,7 +20,7 @@ export default function PengaturanForm() {
 
   // Ambil data
   const { data, isLoading } = usePengaturan();
-  const { tanggaltutup } = data || {};
+  const { tanggaltutup, tanggalbuka } = data || {};
 
   if (isLoading) return <SpinnerFullContainer />;
 
@@ -30,7 +30,23 @@ export default function PengaturanForm() {
       onSubmit={handleSubmit(onSubmit, onError)}
     >
       <FormRow
-        label="Tenggat Akhir Pendaftaran"
+        label="Tanggal Awal Pendaftaran"
+        error={errors?.tanggalbuka?.message}
+        required
+      >
+        <input
+          type="date"
+          id="tanggalbuka"
+          className="border-2 px-2 py-1 border-neutral-200 rounded-md w-full disabled:text-gray-500"
+          defaultValue={tanggalbuka}
+          {...register("tanggalbuka", {
+            valueAsDate: true,
+          })}
+        />
+      </FormRow>
+
+      <FormRow
+        label="Tanggal Akhir Pendaftaran"
         error={errors?.tanggaltutup?.message}
         required
       >

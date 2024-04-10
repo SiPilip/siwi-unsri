@@ -3,7 +3,7 @@ import supabase from "./supabase";
 export async function getPengaturan() {
   const { data, error } = await supabase
     .from("pengaturan")
-    .select("tanggaltutup")
+    .select("tanggaltutup, tanggalbuka")
     .single();
 
   if (error) {
@@ -14,10 +14,10 @@ export async function getPengaturan() {
   return data;
 }
 
-export async function updatePengaturan({ tanggaltutup }) {
+export async function updatePengaturan(updateData) {
   const { data, error } = await supabase
     .from("pengaturan")
-    .update({ tanggaltutup })
+    .update(updateData)
     .eq("id", 1)
     .select();
 
