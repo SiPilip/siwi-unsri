@@ -38,7 +38,7 @@ export default function MainNav() {
         <NavbarItem to="/daftar" disable={!isOpenPraWisuda}>
           Formulir Pendaftaran
         </NavbarItem>
-        <NavbarItem to="/pembayaran" disable={!isOpenPraWisuda}>
+        <NavbarItem to="/pembayaran" disable={false}>
           Pembayaran
         </NavbarItem>
         <NavbarItem to="/seatsystem" disable={!isOpenPraWisuda}>

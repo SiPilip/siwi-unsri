@@ -8,6 +8,7 @@ import ProtectedRoute from "./features/authentication/ProtectedRoute";
 import UbahProfile from "./pages/UbahProfile";
 import ProtectedAdminRoute from "./features/authentication/ProtectedAdminRoute";
 import AdminAppLayout from "./ui/AdminAppLayout";
+import Pembayaran from "./pages/Pembayaran";
 
 // PAGES
 // import PageNotFound from "./ui/PageNotFound";
@@ -72,6 +73,7 @@ export default function App() {
               <Route path="/usept" element={<USEPT />} />
               <Route path="/daftar" element={<FormulirPendaftaran />} />
               <Route path="/ubahprofile" element={<UbahProfile />} />
+              <Route path="/pembayaran" element={<Pembayaran />} />
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

@@ -8,12 +8,9 @@ import {
   HiMiniLockClosed,
   HiMiniUser,
 } from "react-icons/hi2";
-import { TOKEN_SIWI_2024 } from "../../env/TOKEN_SIWI";
 import toast from "react-hot-toast";
 import useSignup from "./useSignup";
 export default function RegisterForm() {
-  const TOKEN = TOKEN_SIWI_2024;
-
   const { register, handleSubmit, formState, reset, getValues } = useForm();
   const { errors } = formState;
 
@@ -21,13 +18,14 @@ export default function RegisterForm() {
   // const { createVerifikasi, isCreatingVerifikasi } = useCreateVerifikasi();
 
   function onSubmit({ email, password, nim }) {
-    signup({ email, password,nim }, { onSuccess: () => reset() });
+    signup({ email, password, nim }, { onSuccess: () => reset() });
   }
 
   function onError() {
     toast.error("Cek kembali kolom registrasi anda!");
   }
 
+  console.log(import.meta.env.VITE_TOKEN_SIWI);
   return (
     <form onSubmit={handleSubmit(onSubmit, onError)} className="w-[70%]">
       <LoginFormRow label="Nomor Induk Mahasiswa" error={errors?.nim?.message}>
@@ -110,7 +108,9 @@ export default function RegisterForm() {
           icon={<HiMiniLockClosed />}
           {...register("token", {
             required: "Token wajib diisi!",
-            validate: (value) => value === TOKEN || "Cek kembali token anda!",
+            validate: (value) =>
+              value === import.meta.env.VITE_TOKEN_SIWI ||
+              "Cek kembali token anda!",
           })}
         />
       </LoginFormRow>
