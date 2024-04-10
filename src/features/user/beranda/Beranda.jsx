@@ -19,8 +19,8 @@ export default function Beranda() {
   } = useProgress();
 
   const { data, isLoading } = usePengaturan();
-  const { haritutup } = data || {};
-  let date = new Date(haritutup);
+  const { tanggaltutup } = data || {};
+  let date = new Date(tanggaltutup);
 
   let dateMDY = `${date.getDate()}-${
     date.getMonth() + 1
