@@ -4,7 +4,7 @@ import Invoice from "./Invoice";
 import { useUser } from "../../authentication/useUser";
 import usePembayaran from "./usePembayaran";
 import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
-import { linkbe } from "../../../../environment";
+import { linkbe } from "../../../../env/environment";
 
 export default function PembayaranLayout() {
   const {
