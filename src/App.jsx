@@ -9,6 +9,7 @@ import UbahProfile from "./pages/UbahProfile";
 import ProtectedAdminRoute from "./features/authentication/ProtectedAdminRoute";
 import AdminAppLayout from "./ui/AdminAppLayout";
 import Pembayaran from "./pages/Pembayaran";
+import PembayaranSukses from "./features/user/pembayaran/PembayaranSukses";
 
 // PAGES
 // import PageNotFound from "./ui/PageNotFound";
@@ -74,6 +75,7 @@ export default function App() {
               <Route path="/daftar" element={<FormulirPendaftaran />} />
               <Route path="/ubahprofile" element={<UbahProfile />} />
               <Route path="/pembayaran" element={<Pembayaran />} />
+              <Route path="/pembayaransukses" element={<PembayaranSukses />} />
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
