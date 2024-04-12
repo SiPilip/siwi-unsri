@@ -1,1 +1,1 @@
-export const linkbe = "http://localhost:3000/api/tokenizerr";
+export const linkbe = "http://localhost:3000/api/tokenizer";
