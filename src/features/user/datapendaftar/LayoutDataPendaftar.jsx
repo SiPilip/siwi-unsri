@@ -3,7 +3,6 @@ import SubHeaderDataPendaftar from "./SubHeaderDataPendaftar";
 import DataPribadi from "./DataPribadi";
 import DataOrangTua from "./DataOrangTua";
 import useProgress from "../beranda/useProgress";
-import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
 
 export default function LayoutDataPendaftar() {
   const [isShowingDataPribadi, setIsShowingDataPribadi] = useState(false);

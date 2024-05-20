@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <tr class="border hover:bg-slate-50">
+      <th scope="row" class="px-2 font-bold whitespace-nowrap py-4">
+        Jenjang Pendidikan
+      </th>
+      <td class="flex flex-row items-center justify-center py-2">
+        <span class="mr-8">:</span>
+        <select id="jenjangpendidikan" class="input-bio">
+          <option selected>Jenjang/Pendidikan yang ditempuh</option>
+          <option value="D3">Diploma</option>
+          <option value="S1">Sarjana</option>
+        </select>
+      </td>
+    </tr>
+    <br />
+    <tr class="border hover:bg-slate-50">
+      <th scope="row" class="px-2 font-bold whitespace-nowrap py-4">
+        Prodi/Jurusan
+      </th>
+      <td class="flex flex-row items-center justify-center py-2">
+        <span class="mr-8">:</span>
+        <select id="jurusan" class="input-bio">
+          <option selected>Pilih Jurusan</option>
+          <option value="Teknik Informatika" class="s1 hidden">
+            Teknik Informatika
+          </option>
+          <option value="Sistem Informasi" class="s1 hidden">
+            Sistem Informasi
+          </option>
+          <option value="Sistem Komputer" class="s1 hidden">
+            Sistem Komputer
+          </option>
+          <option value="Teknik Komputer" class="d3 hidden">
+            Teknik Komputer
+          </option>
+          <option value="Teknik Komputer Akutansi" class="d3 hidden">
+            Teknik Komputer Akutansi
+          </option>
+        </select>
+      </td>
+    </tr>
+  </body>
+
+  <script>
+    const jenjangpendidikan = document.getElementById("jenjangpendidikan");
+    const jurusanS1 = document.getElementsByClassName("s1");
+    const jurusanD3 = document.getElementsByClassName("d3");
+    jenjangpendidikan.addEventListener("change", (event) => {
+      if (jenjangpendidikan.value === "S1") {
+        for (let i = 0; i < jurusanS1.length; i++) {
+          jurusanS1[i].classList.remove("hidden");
+        }
+        for (let i = 0; i < jurusanD3.length; i++) {
+          jurusanD3[i].classList.add("hidden");
+        }
+      }
+
+      if (jenjangpendidikan.value === "D3") {
+        for (let i = 0; i < jurusanS1.length; i++) {
+          jurusanS1[i].classList.add("hidden");
+        }
+        for (let i = 0; i < jurusanD3.length; i++) {
+          jurusanD3[i].classList.remove("hidden");
+        }
+      }
+    });
+  </script>
+</html>

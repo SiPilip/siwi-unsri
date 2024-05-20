@@ -35,18 +35,10 @@ export default function MainNav() {
         </NavbarItem>
 
         <NavbarItemHead>Pra-Wisuda</NavbarItemHead>
-        <NavbarItem to="/daftar" disable={!isOpenPraWisuda}>
-          Formulir Pendaftaran
-        </NavbarItem>
-        <NavbarItem to="/pembayaran" disable={false}>
-          Pembayaran
-        </NavbarItem>
-        <NavbarItem to="/seatsystem" disable={!isOpenPraWisuda}>
-          Seatsystem
-        </NavbarItem>
-        <NavbarItem to="/kartuundangan" disable={!isOpenPraWisuda}>
-          Kartu Undangan
-        </NavbarItem>
+        <NavbarItem to="/daftar">Formulir Pendaftaran</NavbarItem>
+        <NavbarItem to="/pembayaran">Pembayaran</NavbarItem>
+        <NavbarItem to="/seatsystem">Seatsystem</NavbarItem>
+        <NavbarItem to="/kartuundangan">Kartu Undangan</NavbarItem>
 
         <NavbarItemHead>Akun</NavbarItemHead>
         <NavbarItem to="/ubahprofile">Ubah Profile</NavbarItem>

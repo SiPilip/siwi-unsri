@@ -1,0 +1,4 @@
+td,
+p {
+  @apply font-times text-base;
+}

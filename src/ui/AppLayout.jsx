@@ -12,7 +12,10 @@ export default function AppLayout() {
   if (namaRoute === "transkripnilai") namaRoute = "Transkrip Nilai";
   if (namaRoute === "usept") namaRoute = "English Proficiency Test - USEPT";
   if (namaRoute === "daftar") namaRoute = "Formulir Pendaftaran";
+  if (namaRoute === "pembayaran") namaRoute = "Pembayaran Wisuda";
   if (namaRoute === "pembayaransukses") namaRoute = "";
+  if (namaRoute === "seatsystem") namaRoute = "Posisi Kursi Wisudawan";
+  if (namaRoute === "kartuundangan") namaRoute = "Kartu Undangan Wisuda";
 
   return (
     <>

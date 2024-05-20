@@ -1,6 +1,5 @@
 import ContentTitle from "../../../ui/ContentTitle";
 import uparrow from "../../../../public/icons/up_arrow.svg";
-import Verified from "../../../ui/Verified";
 
 export default function SubHeaderDataPendaftar({
   title,

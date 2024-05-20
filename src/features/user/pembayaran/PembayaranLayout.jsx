@@ -5,18 +5,18 @@ import { useUser } from "../../authentication/useUser";
 import usePembayaran from "./usePembayaran";
 import SpinnerFullContainer from "../../../ui/SpinnerFullContainer";
 import { linkbe } from "../../../../dir/environment";
+import dateFormatID from "../../../utils/dateFormatID";
+import clockFormatID from "../../../utils/clockFormatID";
 
 export default function PembayaranLayout() {
   const {
     user: { id, email },
     user,
   } = useUser();
-
-  const harga = 750000;
   const { fullName } = user.user_metadata || {};
 
+  const harga = 300000;
   const randomInt = Math.floor(Math.random() * 900) + 100;
-
   async function checkout() {
     const data = {
       id: `${randomInt}-${email.substring(0, 14)}`,
@@ -24,7 +24,6 @@ export default function PembayaranLayout() {
       price: harga,
       quantity: 1,
     };
-
     const response = await fetch(linkbe, {
       method: "POST",
       body: JSON.stringify(data),
@@ -40,38 +39,18 @@ export default function PembayaranLayout() {
     script.src = snapScript;
     script.setAttribute("data-client-key", clientKey);
     script.async = true;
-
     document.body.appendChild(script);
-
     return () => {
       document.body.removeChild(script);
     };
   }, []);
 
   const { data: dataPembayaran, isLoading } = usePembayaran(id);
-  const { status, created_at } = dataPembayaran || {};
-
-  function dateString() {
-    if (dataPembayaran) {
-      const dateString = created_at.toString();
-      const date = new Date(dateString);
-      const formattedDate = date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-      const formattedTime = date.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true,
-      });
-      const formattedDateTime = `${formattedDate}, ${formattedTime}`;
-      return formattedDateTime;
-    }
-  }
+  const { status, created_at, order_id } = dataPembayaran || {};
+  const date = new Date();
 
   if (isLoading) return <SpinnerFullContainer />;
+
   return (
     <>
       {status !== "isPaid" && (
@@ -97,7 +76,18 @@ export default function PembayaranLayout() {
       {status === "isPaid" && (
         <div>
           {fullName} sudah melakukan pembayaran wisuda pada tanggal{" "}
-          <span className="font-semibold">{dateString()}</span>
+          <span className="font-semibold">
+            {dateFormatID(created_at)}, {clockFormatID(created_at)}
+          </span>
+          <hr className="my-5" />
+          <Invoice
+            invoiceid={`#${order_id}`}
+            nim={email.substring(0, 14)}
+            nama={fullName}
+            harga={harga}
+            created_at={created_at}
+            isPaid
+          />
         </div>
       )}
     </>
